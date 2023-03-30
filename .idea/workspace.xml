@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f18ce1b1-0188-4008-a26f-1679ede9963c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/GamePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/KeyHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/PlayerMovement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/SocketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/UtilityTool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Crop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Inventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Land.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Pet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Shop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Sound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Tile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/DrawCrop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/DrawMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/DrawPet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/DrawPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/DrawShop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/LoginForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/RegistrationForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/View/UI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/0/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/0/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/0/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/0/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/0/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/0/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/1/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/1/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/1/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/1/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/1/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/1/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/10/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/10/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/10/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/10/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/10/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/10/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/11/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/11/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/11/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/11/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/11/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/11/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/12/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/12/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/12/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/12/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/12/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/12/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/13/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/13/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/13/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/13/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/13/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/13/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/14/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/14/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/14/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/14/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/14/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/14/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/15/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/15/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/15/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/15/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/15/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/15/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/16/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/16/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/16/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/16/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/16/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/16/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/17/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/17/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/17/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/17/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/17/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/17/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/18/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/18/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/18/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/18/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/18/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/18/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/19/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/19/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/19/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/19/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/19/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/19/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/2/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/2/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/2/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/2/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/2/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/2/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/3/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/3/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/3/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/3/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/3/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/3/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/4/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/4/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/4/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/4/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/4/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/4/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/5/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/5/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/5/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/5/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/5/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/5/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/6/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/6/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/6/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/6/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/6/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/6/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/7/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/7/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/7/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/7/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/7/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/7/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/8/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/8/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/8/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/8/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/8/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/8/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/9/0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/9/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/9/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/9/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/9/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Crop/9/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Map/Map1_layer1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Map/Map1_layer2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Map/Map2_layer1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Map/Map2_layer2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Map/world01.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/1/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/2/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/3/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/4/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/5/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/6/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/7/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/down1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/down2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/up1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/8/up2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Player/Vil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/BlueBoyAdventure.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/Dungeon.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/FinalBattle.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/Merchant.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/blocked.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/burning.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/chipwall.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/coin.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/cursor.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/cuttree.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/dooropen.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/fanfare.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/gameover.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/hitmonster.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/levelup.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/parry.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/powerup.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/receivedamage.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/sleep.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/speak.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/stairs.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/unlock.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Big_tree_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Bush_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Bush_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Cloud.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Cloud_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Fruit_tree_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Fruit_tree_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Fruit_tree_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Fruit_tree_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Lily_pad_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Lily_pad_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Log_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Log_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Log_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Mushroom_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Mushroom_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Mushroom_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Mushroom_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Path_way_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Rock_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Rock_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Rock_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Rock_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Sapling_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Sapling_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Sign.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Sun.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Tree_big_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Tree_big_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Tree_big_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Tree_big_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Tree_thin_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/Tree_thin_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_down_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_down_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_left_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_left_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_right_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_right_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_up_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Decoration/oldman_up_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/3_cornerless_dirt_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/3_cornerless_dirt_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/3_cornerless_dirt_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/3_cornerless_dirt_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Bottom_grass_path_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Bottom_grass_path_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Bottom_grass_path_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Corner_dirt_path_B_L.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Corner_dirt_path_B_R.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Corner_dirt_path_T_L.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Corner_dirt_path_T_R.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_3_way_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_bot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_center.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_chunk_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_chunk_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_chunk_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_chunk_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_chunk_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_circle_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_circle_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_circle_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_circle_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_circle_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_corner_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_corner_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_corner_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_corner_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_cross.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_mid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_texture_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_texture_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_texture_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_texture_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_texture_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_texture_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Dirt_up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Left_dirt_path_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Left_dirt_path_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Right_dirt_path_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Right_dirt_path_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Tilled_dirt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Tilled_dirt2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Top_dirt_path_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/Top_dirt_path_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/pool_corner_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/pool_corner_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/pool_corner_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Dirt/pool_corner_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_bot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Fence/Fence_vertical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_cornerless_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_cornerless_Down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_cornerless_L.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_cornerless_R.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_cornerless_T.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_cornerless_Up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_way_grass_path_E_S.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_way_grass_path_LB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_way_grass_path_T_L.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/2_way_grass_path_T_R.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_cornerless_BL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_cornerless_BR.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_cornerless_TL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_cornerless_TR.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_BL_T.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_LB_R.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_L_R_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_L_R_T.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_RB_L.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_RB_T.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_TL_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_TL_R.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_TR_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_TR_L.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_T_L_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/3_way_grass_path_T_R_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Bottom_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Circle_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Cornerless_grass_path_BL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Cornerless_grass_path_RB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Cornerless_grass_path_TL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Cornerless_grass_path_TR.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Crossed_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Grass_top_dirt_cover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/L_R_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Left_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Middle_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Right_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/Top_grass_path.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass/grass_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Grass_texture/Grass_texture_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/House/House_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Shadow_left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Shadow_right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_bot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_bot_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_bot_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_bot_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_bot_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_plain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_top_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_top_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_top_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Wall/Wall_vertical_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Water/Water_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Water/Water_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Water/Water_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/Water/Water_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/blank.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/blank_collision.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tile/select.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/thumb2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/thumbnail.png" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NgCeO5e2ReGgZpUdaw62By8xZF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/Code/Java/Game-Nong-Trai-new/src/main/resources"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Code\Java\Game-Nong-Trai-new\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="View" />
+      <recent name="Controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Controller.Main" />
+      <module name="Game-Nong-Trai-new" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f18ce1b1-0188-4008-a26f-1679ede9963c" name="Changes" comment="" />
+      <created>1680076433037</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680076433037</updated>
+    </task>
+    <servers />
+  </component>
+</project>
