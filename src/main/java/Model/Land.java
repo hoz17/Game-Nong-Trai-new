@@ -113,11 +113,12 @@ public class Land {
     public void calculateLandPrice() {
         int delta = 500;
         int lastPrice = 0;
-        for (int i = 1; i < 8; i++)
-            for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 4; j++)
+            for (int i = 1; i < 8; i++) {
                 this.landPrice[i][j] = lastPrice + delta;
-                delta += delta;
+                delta += 500;
                 lastPrice = landPrice[i][j];
+//                System.out.println(landPrice[i][j]);
             }
     }
 }

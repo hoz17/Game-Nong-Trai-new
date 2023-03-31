@@ -1,12 +1,10 @@
 package Controller;
 
 import Model.*;
-import View.LoginForm;
+import View.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class GamePanel extends JPanel implements Runnable {
     public final int originalTileSize = 16; //16x16 tile
@@ -15,6 +13,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale;// 48x48 tile
     public final int maxScreenCol = 22;
     public final int maxScreenRow = 14;
+    public final int maxWorldCol = 24;
+    public final int maxWorldRow = 16;
     public final int screenWidth = tileSize * maxScreenCol; // 1056 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 672 pixels
 
@@ -25,6 +25,9 @@ public class GamePanel extends JPanel implements Runnable {
 //    public Main main = new Main();
     public LoginForm loginForm;
 
+
+    // Draw component
+    public DrawMap dMap = new DrawMap();
 
     //GameState
     public int gameState;
@@ -41,17 +44,20 @@ public class GamePanel extends JPanel implements Runnable {
 
     //Model
     public Crop crop;
-    public Player player = null;
+    public Player player;
     public Inventory inventory;
     public Land land;
     public Pet pet;
-    public Shop shop;
+    public Shop shop = new Shop();
 
     //Setup Game
-//    public
-
-
+    public AssetSetter aSetter = new AssetSetter(this);
+    public boolean clock = false;
+    public int currentMap = 0;
     public int FPS = 60;
+    public KeyHandler keyH = new KeyHandler(this);
+    public PlayerMovement playerMovement = new PlayerMovement(this, keyH);
+    public EventHandler eHandler = new EventHandler(this, keyH);
 
     @Override
     public void run() {
@@ -60,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (gameThread != null) {
+        while (gameThread != null && clock == true) {
             currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
@@ -69,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (delta >= 0) {
                 update();
                 repaint();
+//                System.out.println(this.player.worldX + " " + this.player.worldY);
                 delta--;
             }
         }
@@ -78,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(0x91D8F2));
-        //  this.addKeyListener(keyH); // phân tích nút
+        this.addKeyListener(keyH); // phân tích nút
         this.setDoubleBuffered(true);
         this.setFocusable(true); // nhận nút
         loginForm = new LoginForm(this);
@@ -86,11 +93,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         if (gameState == playState) {
-//            playerMovement.update();
+            playerMovement.update();
 //            //NPC
-//            if (this.player.getPetID() != 0) {
-//                petMovement.update();
-//            }
+            if (this.player.getPetID() != 0) {
+                pet.update();
+            }
         } else if (gameState == pauseState) {
 
         }
@@ -105,11 +112,36 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        dMap.draw(g2, this.currentMap);
+        if (currentMap == 0)
+            shop.draw(g2);
+        if (this.player != null) {
+            this.player.draw(g2);
+            if (this.player.getPetID() != 0) {
+                pet.draw(g2);
+            }
+        }
+    }
+
     public void setUpGame() {
         gameState = titleState;
+        this.shop = new Shop();
         this.player.getPlayerImage(this.player.getGenderSkin());
+        if (this.player.getPetID() != 0) {
+            this.pet = new Pet(this.player.getPetID(), this);
+            this.pet.getImage(this.player.getPetID());
+            this.aSetter.setPet();
+        }
         //set player position
-        //set pet
-        //set
+        this.aSetter.setPlayer();
+        //set shop
+        this.aSetter.setShop();
+        this.clock = true;
+        this.gameState = this.playState;
+//        if(clock==true) System.out.println("setupgame");
+        run();
     }
 }

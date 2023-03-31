@@ -64,6 +64,7 @@ public class SocketHandler implements Runnable {
                     gp.land = getLandData(61, messageSplit);
                     gp.land.calculateLandPrice();
                     gp.setUpGame();
+
                 }
                 //Thông tin tài khoản sai
                 if (messageSplit[0].equals("wrong-user")) {
