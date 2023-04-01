@@ -4,12 +4,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
+    public boolean collisionOn = false;
     private String playerName;
     private int money;
     private int genderSkin;
     private int petID;
     private int poiterX, pointerY;
-    public boolean collisionOn = false;
 
     public Player(String playerName, int money, int genderSkin, int petID) {
         this.playerName = playerName;
@@ -17,6 +17,9 @@ public class Player extends Entity {
         this.genderSkin = genderSkin;
         this.petID = petID;
         this.direction = "up";
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+//        solidArea = new Rectangle(10, 18, 28, 30);
     }
 
     public void getPlayerImage(int genderSkin) {
@@ -38,16 +41,16 @@ public class Player extends Entity {
         return money;
     }
 
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
     public int getGenderSkin() {
         return genderSkin;
     }
 
     public int getPetID() {
         return petID;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
     }
 
     public void setPetID(int petID) {
@@ -93,5 +96,8 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image, screenX, screenY, 48, 48, null);
+//        g2.setColor(Color.BLACK);
+//        g2.fillRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+//        g2.drawImage(image, worldX, worldY, 48, 48, null);
     }
 }

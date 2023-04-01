@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Pet extends Entity {
-    private int petID;
     GamePanel gp;
+    private int petID;
 
     public Pet(int petID, GamePanel gp) {
         this.gp = gp;
@@ -66,7 +66,9 @@ public class Pet extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, worldX + 50, worldY, 48, 48, null);
+        g2.drawImage(image, screenX, screenY, 48, 48, null);
+//        g2.setColor(Color.black);
+//        g2.drawRect(worldX, worldY, solidArea.width, solidArea.height);
     }
 
     public void setAction() {
@@ -89,10 +91,13 @@ public class Pet extends Entity {
     }
 
     public void update() {
+        collisionOn = false;
         setAction();
+        gp.cChecker.checkPetCollision(this);
+        gp.cChecker.checkPlayer(this);
 //        checkCollision();
         //Náº¿u "collision" lÃ  sai , player cÃ³ thá»ƒ di chuyá»ƒn
-        if (collisionOn == false) {
+        if (!collisionOn) {
             if (direction == "up") {
                 worldY -= speed;
             } else if (direction == "down") {
@@ -103,14 +108,18 @@ public class Pet extends Entity {
                 worldX += speed;
             }
         }
+        screenX = worldX;
+        screenY = worldY;
         spriteCounter++;
-        if (spriteCounter > 12) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
+        if (!collisionOn) {
+            if (spriteCounter > 12) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
             }
-            spriteCounter = 0;
         }
     }
 

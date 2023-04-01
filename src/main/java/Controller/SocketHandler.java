@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Crop;
 import Model.Inventory;
 import Model.Land;
 import Model.Player;
@@ -14,11 +15,11 @@ import java.util.Date;
 
 
 public class SocketHandler implements Runnable {
+    GamePanel gp;
     private BufferedWriter os;
     private BufferedReader is;
     private Socket socketOfClient;
     private int ID_Server;
-    GamePanel gp;
 
     public SocketHandler(GamePanel gp) {
         this.gp = gp;
@@ -44,6 +45,7 @@ public class SocketHandler implements Runnable {
                 String[] messageSplit = message.split("=");
                 if (messageSplit[0].equals("server-send-id")) {
                     ID_Server = Integer.parseInt(messageSplit[1]);
+                    write("load-crop-data=");
 //                    System.out.print("Nhập tên tài khoản: ");
 //                    username = sc.nextLine();
 //                    System.out.print("Nhập mật khẩu: ");
@@ -64,7 +66,9 @@ public class SocketHandler implements Runnable {
                     gp.land = getLandData(61, messageSplit);
                     gp.land.calculateLandPrice();
                     gp.setUpGame();
-
+                }
+                if (messageSplit[0].equals("crop-data")) {
+                    gp.crop = getCropData(1, messageSplit);
                 }
                 //Thông tin tài khoản sai
                 if (messageSplit[0].equals("wrong-user")) {
@@ -135,6 +139,30 @@ public class SocketHandler implements Runnable {
                 position++;
             }
         return new Land(slot, state, cropID, plantTime, waterLevel);
+    }
+
+    public Crop getCropData(int start, String[] message) {
+        int[] cropID = new int[21];
+        String[] cropName = new String[21];
+        int[] cropGrowTime = new int[21];
+        int[] cropBuyPrice = new int[21];
+        int[] cropSellPrice = new int[21];
+        int[] waterLevel = new int[21];
+        for (int i = 0; i < 21; i++) {
+            cropID[i] = Integer.parseInt(message[i * 6 + start]);
+            System.out.println(cropID[i]);
+            cropName[i] = message[i * 6 + start + 1];
+            System.out.println(cropName[i]);
+            cropGrowTime[i] = Integer.parseInt(message[i * 6 + start + 2]);
+            System.out.println(cropGrowTime[i]);
+            cropBuyPrice[i] = Integer.parseInt(message[i * 6 + start + 3]);
+            System.out.println(cropBuyPrice[i]);
+            cropSellPrice[i] = Integer.parseInt(message[i * 6 + start + 4]);
+            System.out.println(cropSellPrice[i]);
+            waterLevel[i] = Integer.parseInt(message[i * 6 + start + 5]);
+            System.out.println(waterLevel[i]);
+        }
+        return new Crop(cropID, cropName, cropGrowTime, cropBuyPrice, cropSellPrice, waterLevel);
     }
 
     public void write(String message) throws IOException {

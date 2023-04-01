@@ -18,7 +18,7 @@ public class Main {
         JFrame window = new JFrame();
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setTitle("Nông trại trồng gì cũng được");
         GamePanel gp = new GamePanel();
         socketHandler = new SocketHandler(gp);

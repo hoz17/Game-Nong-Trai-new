@@ -74,8 +74,8 @@ public class Land {
         this.waterLevel = waterLevel;
 //        this.defaultPrice = 500;
 //        this.landPrice[1][0] = defaultPrice;
-//        this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
-//        this.sign = setup("/Tile/Decoration/Sign");
+        this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
+        this.sign = setup("/Tile/Decoration/Sign");
     }
 
     public int getHaveLand() {
