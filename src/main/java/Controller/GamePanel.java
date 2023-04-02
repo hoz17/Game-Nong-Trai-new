@@ -74,7 +74,6 @@ public class GamePanel extends JPanel implements Runnable {
         setDoubleBuffered(true);
         setFocusable(true); // nhận nút
         loginForm = new LoginForm(this);
-        System.out.println(1);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (gameThread != null && clock == true) {
+        while (Main.gameThread != null && clock == true) {
             currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
@@ -116,10 +115,10 @@ public class GamePanel extends JPanel implements Runnable {
 //        loginForm = new LoginForm();
 //    }
 
-    public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
+//    public void startGameThread() {
+//        gameThread = new Thread(this);
+//        gameThread.start();
+//    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -129,10 +128,11 @@ public class GamePanel extends JPanel implements Runnable {
         if (currentMap == 0)
             shop.draw(g2);
         if (player != null) {
-            if (currentMap == 1){
+            if (currentMap == 1) {
                 dLand.update(g2);
                 dCrop.update(g2);
-        }
+                dCrop.checkSelect(g2);
+            }
             player.draw(g2);
             if (player.getPetID() != 0) {
                 pet.draw(g2);
@@ -154,7 +154,9 @@ public class GamePanel extends JPanel implements Runnable {
         clock = true;
         gameState = playState;
         tile.setCollision();
+        Main.gameThread.start();
 //        if(clock==true) System.out.println("setupgame");
-        run();
+//        gameThread.start();
+//        Main.socketHandler.startGameThread();
     }
 }

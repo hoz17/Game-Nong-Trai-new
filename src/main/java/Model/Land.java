@@ -7,14 +7,29 @@ import java.awt.image.BufferedImage;
 import java.sql.Timestamp;
 
 public class Land {
-    private int slot[][];
-    private int state[][];
-    private int cropID[][];
-    private Timestamp plantTime[][];
-    private int waterLevel[][];
-    private int landPrice[][] = new int[8][4];
+    private int[][] slot;
+    private int[][] state;
+    private int[][] cropID;
+    private Timestamp[][] plantTime;
+    private int[][] waterLevel;
+    private int[][] landPrice = new int[8][4];
     private BufferedImage tilledDirt, sign;
     private int haveLand;
+    private boolean[][] harvestable = new boolean[8][4];
+
+    public Land(int[][] slot, int[][] state, int[][] cropID, Timestamp[][] plantTime, int[][] waterLevel) {
+
+        this.slot = slot;
+        this.state = state;
+        this.cropID = cropID;
+        this.plantTime = plantTime;
+        this.waterLevel = waterLevel;
+//        this.defaultPrice = 500;
+//        this.landPrice[1][0] = defaultPrice;
+        this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
+        this.sign = setup("/Tile/Decoration/Sign");
+        this.haveLand = countLand();
+    }
 
     public int getSlot(int i, int j) {
         return slot[i][j];
@@ -64,26 +79,20 @@ public class Land {
         return tilledDirt;
     }
 
-
-    public Land(int[][] slot, int[][] state, int[][] cropID, Timestamp[][] plantTime, int[][] waterLevel) {
-
-        this.slot = slot;
-        this.state = state;
-        this.cropID = cropID;
-        this.plantTime = plantTime;
-        this.waterLevel = waterLevel;
-//        this.defaultPrice = 500;
-//        this.landPrice[1][0] = defaultPrice;
-        this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
-        this.sign = setup("/Tile/Decoration/Sign");
-    }
-
     public int getHaveLand() {
         return haveLand;
     }
 
     public void setHaveLand(int haveLand) {
         this.haveLand = haveLand;
+    }
+
+    public void setHarvestable(int i, int j, boolean harvestable) {
+        this.harvestable[i][j] = harvestable;
+    }
+
+    public boolean getHarvestable(int i, int j) {
+        return harvestable[i][j];
     }
 
     public int countLand() {
@@ -95,6 +104,13 @@ public class Land {
                 }
         }
         return output;
+    }
+
+    public void setSign() {
+        for (int i = 0; i < 8; i++)
+            for (int j = 0; j < 4; j++)
+                if (slot[i][j] == haveLand)
+                    state[i][j] = 2;
     }
 
     public BufferedImage setup(String imagePath) {

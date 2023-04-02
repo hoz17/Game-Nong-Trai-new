@@ -22,7 +22,9 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         if (gp.gameState == gp.playState) {
             playState(code);
-
+        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
         }
     }
 
@@ -38,6 +40,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
+        }
+        if (code == KeyEvent.VK_E) {
+            gp.eHandler.event(gp);
         }
     }
 

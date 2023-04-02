@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -99,5 +101,8 @@ public class Player extends Entity {
 //        g2.setColor(Color.BLACK);
 //        g2.fillRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 //        g2.drawImage(image, worldX, worldY, 48, 48, null);
+    }
+    public void loadComponent(GamePanel  gp){
+        gp.aSetter.setPlayer();
     }
 }

@@ -1,9 +1,12 @@
 package Controller;
 
+import java.io.IOException;
+
 public class EventHandler {
     GamePanel gp;
     KeyHandler keyH;
     EventRect eventRect[][];
+//    SocketHandler socketHandler;
 
     public EventHandler(GamePanel gp, KeyHandler keyH) {
         this.keyH = keyH;
@@ -34,11 +37,15 @@ public class EventHandler {
             gp.currentMap = 1;
             gp.player.worldX = gp.tileSize * 11 + 16;
             gp.player.worldY = gp.tileSize * 13;
+            gp.pet.worldX = gp.player.worldX - 48;
+            gp.pet.worldY = gp.player.worldY - 48;
         } else if (gp.currentMap == 1 && (hit(11, 14, "any") ||
                 hit(12, 14, "any"))) {
             gp.currentMap = 0;
             gp.player.worldX = gp.tileSize * 11 - 16;
             gp.player.worldY = gp.tileSize * 6;
+            gp.pet.worldX = gp.player.worldX - 48;
+            gp.pet.worldY = gp.player.worldY - 48;
         }
 //         else if (gp.currentMap == 1 && keyH.ePressed == true) {
 //            gp.crop.event(gp, keyH);
@@ -101,6 +108,49 @@ public class EventHandler {
         eventRect[col][row].x = eventRect[col][row].eventRectDefaultX;
         eventRect[col][row].y = eventRect[col][row].eventRectDefaultY;
         return hit;
+    }
+
+    public void event(GamePanel gp) {
+        if ((gp.player.worldX < gp.tileSize * 11 && gp.player.worldX > gp.tileSize * 3) &&
+                (gp.player.worldY < gp.tileSize * 10 && gp.player.worldY > gp.tileSize * 6)) {
+            //System.out.println(col+ " " + row);
+//            if (gp.keyH.ePressed == true) {
+            interact(gp.land.getState(gp.dCrop.col, gp.dCrop.row));
+
+//            keyH.ePressed = false;
+        }
+    }
+
+    public void interact(int state) {
+        int col = gp.dCrop.col;
+        int row = gp.dCrop.row;
+        switch (state) {
+            case 0:
+                //System.out.println("chưa mua đất");
+                break;
+            case 1:
+                //System.out.println("đã mua đất");
+                // MỞ Ô CHỌN HẠT GIỐNG
+                if (gp.land.getCropID(col, row) == -1) {
+                    gp.gameState = gp.selectSeed;
+                } else if (gp.land.getWaterLevel(col, row) < 3) {
+                    gp.gameState = gp.selectTool;
+                } else if (gp.land.getWaterLevel(col, row) == 3) {
+                    if (gp.land.getHarvestable(col, row)) {
+//                        System.out.println("thu hoạch được rồi");
+                        // thu hoạch cây
+                        try {
+                            Main.socketHandler.write("harvest=" + gp.land.getCropID(col, row) + "=" + gp.land.getSlot(col, row));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else gp.gameState = gp.selectTool;
+                }
+                break;
+            case 2:
+                gp.gameState = gp.buyLand;
+                break;
+        }
     }
 
 //    public void teleport(int map, int col, int row) {

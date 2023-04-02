@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 public class Crop {
-        private int[] cropID;
+    private int[] cropID;
     private String[] cropName;
     private BufferedImage[][] cropImage = new BufferedImage[20][6];
     private int[] cropGrowTime;
@@ -14,7 +14,9 @@ public class Crop {
     private int[] cropSellPrice;
     private int[] waterLevel;
 
-    public Crop(int[] cropID,String[] cropName, int[] cropGrowTime, int[] cropBuyPrice, int[] cropSellPrice, int[] waterLevel) {
+
+
+    public Crop(int[] cropID, String[] cropName, int[] cropGrowTime, int[] cropBuyPrice, int[] cropSellPrice, int[] waterLevel) {
         this.cropID = cropID;
         this.cropName = cropName;
         this.cropGrowTime = cropGrowTime;
@@ -24,11 +26,22 @@ public class Crop {
         loadCropImage();
     }
 
+
     public void loadCropImage() {
         for (int i = 0; i < 20; i++)
             for (int j = 0; j < 6; j++) {
                 cropImage[i][j] = setup("/Crop/" + i + "/" + j);
             }
+    }
+
+    public BufferedImage getSelect() {
+        BufferedImage image = setup("/Tile/select");
+        return image;
+    }
+
+    public BufferedImage getEGUI() {
+        BufferedImage image = setup("/GUI/E1");
+        return image;
     }
 
     public BufferedImage setup(String imagePath) {
@@ -48,7 +61,9 @@ public class Crop {
     }
 
     public BufferedImage getCropImage(int cropID, int waterLevel) {
-        return cropImage[cropID][waterLevel];
+        if (cropID != -1)
+            return cropImage[cropID][waterLevel];
+        return null;
     }
 
     public int getCropGrowTime(int cropID) {

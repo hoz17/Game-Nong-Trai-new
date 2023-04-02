@@ -6,8 +6,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.concurrent.TimeUnit;
 
 public class DrawCrop {
+    public int worldX, worldY, pointerX, pointerY, col, row, effectX, effectY;
+    int count = 0;
     GamePanel gp;
 
     public DrawCrop(GamePanel gp) {
@@ -22,19 +25,42 @@ public class DrawCrop {
             for (int j = 0; j < 4; j++) {
                 if (gp.land.getCropID(i, j) != -1) {
                     plantTime = Instant.ofEpochMilli(gp.land.getPlantTime(i, j).getTime());
-                    time = Duration.between(plantTime, now).toHours();
+                    time = Duration.between(plantTime, now).toHours(); //lấy thời gian đã trồng rồi chuyển sang giờ
                     if (gp.land.getState(i, j) == 1 && gp.land.getCropID(i, j) != -1) {
-                        if (gp.land.getWaterLevel(i, j) == 3)
+                        if (gp.land.getWaterLevel(i, j) == 3) { // xét trường hợp khi waterlevel = 3
                             if (time >= gp.crop.getCropGrowTime(gp.land.getCropID(i, j))) {
+                                gp.land.setHarvestable(i, j, true);
                                 draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), 4), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
-                            } else
+                            } else {
+                                gp.land.setHarvestable(i, j, false);
                                 draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), gp.land.getWaterLevel(i, j)), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
-
-                        draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), gp.land.getWaterLevel(i, j) + 1),
-                                (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
+                            }
+                        } else {
+                            gp.land.setHarvestable(i, j, false);
+                            draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), gp.land.getWaterLevel(i, j) + 1),
+                                    (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
+                        }
                     }
                 }
             }
+    }
+
+    public void checkSelect(Graphics2D g2) {
+        if (gp.currentMap == 1 &&
+                (gp.player.screenX < gp.tileSize * 11 && gp.player.screenX > gp.tileSize * 3) &&
+                (gp.player.screenY < gp.tileSize * 10 && gp.player.screenY > gp.tileSize * 6)) {
+            worldX = (gp.player.screenX) / gp.tileSize;
+            worldY = (gp.player.screenY) / gp.tileSize;
+            pointerX = worldX * gp.tileSize;
+            pointerY = worldY * gp.tileSize;
+            col = worldX - 3;
+            row = worldY - 6;
+            //System.out.println(((pointerX/gp.tileSize)-3)+" "+((pointerY/gp.tileSize)-6));
+            if (gp.land.getState(col, row) != 0) {
+                draw(g2, gp.crop.getSelect(), pointerX, pointerY);
+                draw(g2, gp.crop.getEGUI(), gp.player.screenX + gp.tileSize, gp.player.screenY - gp.tileSize);
+            }
+        }
     }
 
     public void draw(Graphics2D g2, BufferedImage image, int col, int row) {

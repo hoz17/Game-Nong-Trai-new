@@ -1,14 +1,11 @@
 package Controller;
 
-import Model.Player;
-import View.LoginForm;
-
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Main {
     public static SocketHandler socketHandler;
+    public static Thread gameThread, serverThread;
 //    public static LoginForm loginForm;
 
     public Main() {
@@ -27,10 +24,10 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         //gp.setUpGame();
-        gp.startGameThread();
-        socketHandler.run();
-
-
+        gameThread = new Thread(gp);
+        serverThread = new Thread(socketHandler);
+//        thread1.start();
+        serverThread.start();
 //        loginForm = new LoginForm();
 //        loginForm.setVisible(true);
     }

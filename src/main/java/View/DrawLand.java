@@ -13,10 +13,14 @@ public class DrawLand {
     }
 
     public void update(Graphics2D g2) {
+        gp.land.setSign();
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 4; j++) {
                 if (gp.land.getState(i, j) == 1) {
                     draw(g2, gp.land.getTilledDirt(), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize);
+                }
+                if (gp.land.getState(i, j) == 2) {
+                    draw(g2, gp.land.getSign(), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize);
                 }
             }
     }

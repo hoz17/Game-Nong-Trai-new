@@ -20,11 +20,15 @@ public class SocketHandler implements Runnable {
     private BufferedReader is;
     private Socket socketOfClient;
     private int ID_Server;
+    Thread socketThread;
 
     public SocketHandler(GamePanel gp) {
         this.gp = gp;
     }
-
+    public void startGameThread() {
+        socketThread = new Thread(this);
+        socketThread.start();
+    }
     @Override
     public void run() {
         try {
@@ -38,7 +42,7 @@ public class SocketHandler implements Runnable {
             String message;
             while (true) {
                 message = is.readLine();
-                System.out.println(message);
+                System.out.println("receive " + message);
                 if (message == null) {
                     break;
                 }
@@ -51,6 +55,7 @@ public class SocketHandler implements Runnable {
 //                    System.out.print("Nhập mật khẩu: ");
 //                    password = sc.nextLine();
 //                    write("client-verify=" + username + "=" + password);
+
                 }
 
                 //Đăng nhập thành công
@@ -73,6 +78,18 @@ public class SocketHandler implements Runnable {
                 //Thông tin tài khoản sai
                 if (messageSplit[0].equals("wrong-user")) {
                     gp.loginForm.wrongUser();
+                }
+                if (messageSplit[0].equals("harvest-complete")) {
+                    int slot = Integer.parseInt(messageSplit[1]);
+                    int cropID = Integer.parseInt(messageSplit[2]);
+                    int newCropAmount = Integer.parseInt(messageSplit[3]);
+                    for (int i = 0; i < 8; i++)
+                        for (int j = 0; j < 4; j++) {
+                            if (gp.land.getSlot(i, j) == slot) {
+                                gp.land.setCropID(i, j, -1);
+                                gp.inventory.setCropAmount(cropID, newCropAmount);
+                            }
+                        }
                 }
 
 
@@ -110,7 +127,7 @@ public class SocketHandler implements Runnable {
         int[][] slot = new int[8][4];
         int[][] state = new int[8][4];
         int[][] cropID = new int[8][4];
-        Timestamp plantTime[][] = new Timestamp[8][4];
+        Timestamp[][] plantTime = new Timestamp[8][4];
         int[][] waterLevel = new int[8][4];
         int position = start;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
@@ -150,23 +167,24 @@ public class SocketHandler implements Runnable {
         int[] waterLevel = new int[21];
         for (int i = 0; i < 21; i++) {
             cropID[i] = Integer.parseInt(message[i * 6 + start]);
-            System.out.println(cropID[i]);
+//            System.out.println(cropID[i]);
             cropName[i] = message[i * 6 + start + 1];
-            System.out.println(cropName[i]);
+//            System.out.println(cropName[i]);
             cropGrowTime[i] = Integer.parseInt(message[i * 6 + start + 2]);
-            System.out.println(cropGrowTime[i]);
+//            System.out.println(cropGrowTime[i]);
             cropBuyPrice[i] = Integer.parseInt(message[i * 6 + start + 3]);
-            System.out.println(cropBuyPrice[i]);
+//            System.out.println(cropBuyPrice[i]);
             cropSellPrice[i] = Integer.parseInt(message[i * 6 + start + 4]);
-            System.out.println(cropSellPrice[i]);
+//            System.out.println(cropSellPrice[i]);
             waterLevel[i] = Integer.parseInt(message[i * 6 + start + 5]);
-            System.out.println(waterLevel[i]);
+//            System.out.println(waterLevel[i]);
         }
         return new Crop(cropID, cropName, cropGrowTime, cropBuyPrice, cropSellPrice, waterLevel);
     }
 
     public void write(String message) throws IOException {
         os.write(message);
+        System.out.println("send " + message);
         os.newLine();
         os.flush();
     }
