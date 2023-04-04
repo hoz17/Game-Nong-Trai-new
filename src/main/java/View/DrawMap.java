@@ -33,7 +33,7 @@ public class DrawMap {
 
     public void draw(Graphics2D g2, int currentMap) {
         BufferedImage map1 = setup("/Map/testMap11", 1056, 672);
-        BufferedImage map2 = setup("/Map/Map2", 1056, 672);
+        BufferedImage map2 = setup("/Map/Map2_2", 1056, 672);
 
         if (currentMap == 0) {
             g2.drawImage(map1, 0, 0, null);

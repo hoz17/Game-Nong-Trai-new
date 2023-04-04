@@ -1,11 +1,16 @@
 package Controller;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class EventHandler {
+    public int posX, posY, targetY;
     GamePanel gp;
     KeyHandler keyH;
     EventRect eventRect[][];
+    BufferedImage effect;
+    boolean drawEffect = false;
 //    SocketHandler socketHandler;
 
     public EventHandler(GamePanel gp, KeyHandler keyH) {
@@ -37,15 +42,19 @@ public class EventHandler {
             gp.currentMap = 1;
             gp.player.worldX = gp.tileSize * 11 + 16;
             gp.player.worldY = gp.tileSize * 13;
-            gp.pet.worldX = gp.player.worldX - 48;
-            gp.pet.worldY = gp.player.worldY - 48;
+            if (gp.player.getPetID() != 0) {
+                gp.pet.worldX = gp.player.worldX - 48;
+                gp.pet.worldY = gp.player.worldY - 48;
+            }
         } else if (gp.currentMap == 1 && (hit(11, 14, "any") ||
                 hit(12, 14, "any"))) {
             gp.currentMap = 0;
             gp.player.worldX = gp.tileSize * 11 - 16;
             gp.player.worldY = gp.tileSize * 6;
-            gp.pet.worldX = gp.player.worldX - 48;
-            gp.pet.worldY = gp.player.worldY - 48;
+            if (gp.player.getPetID() != 0) {
+                gp.pet.worldX = gp.player.worldX - 48;
+                gp.pet.worldY = gp.player.worldY - 48;
+            }
         }
 //         else if (gp.currentMap == 1 && keyH.ePressed == true) {
 //            gp.crop.event(gp, keyH);
@@ -111,11 +120,11 @@ public class EventHandler {
     }
 
     public void event(GamePanel gp) {
-        if ((gp.player.worldX < gp.tileSize * 11 && gp.player.worldX > gp.tileSize * 3) &&
-                (gp.player.worldY < gp.tileSize * 10 && gp.player.worldY > gp.tileSize * 6)) {
+        if ((gp.player.screenX < gp.tileSize * 11 && gp.player.screenX > gp.tileSize * 3) &&
+                (gp.player.screenY < gp.tileSize * 10 && gp.player.screenY > gp.tileSize * 6)) {
             //System.out.println(col+ " " + row);
 //            if (gp.keyH.ePressed == true) {
-            interact(gp.land.getState(gp.dCrop.col, gp.dCrop.row));
+            interact(gp.land.getState(gp.dCrop.col * 4 + gp.dCrop.row));
 
 //            keyH.ePressed = false;
         }
@@ -124,6 +133,9 @@ public class EventHandler {
     public void interact(int state) {
         int col = gp.dCrop.col;
         int row = gp.dCrop.row;
+        int slot = col * 4 + row;
+//        System.out.println(slot);
+
         switch (state) {
             case 0:
                 //System.out.println("chưa mua đất");
@@ -131,16 +143,21 @@ public class EventHandler {
             case 1:
                 //System.out.println("đã mua đất");
                 // MỞ Ô CHỌN HẠT GIỐNG
-                if (gp.land.getCropID(col, row) == -1) {
+                if (gp.land.getCropID(slot) == -1) {
                     gp.gameState = gp.selectSeed;
-                } else if (gp.land.getWaterLevel(col, row) < 3) {
+                } else if (gp.land.getWaterLevel(slot) < 3) {
                     gp.gameState = gp.selectTool;
-                } else if (gp.land.getWaterLevel(col, row) == 3) {
-                    if (gp.land.getHarvestable(col, row)) {
+                } else if (gp.land.getWaterLevel(slot) == 3) {
+                    if (gp.land.getHarvestable(slot)) {
 //                        System.out.println("thu hoạch được rồi");
                         // thu hoạch cây
+                        effect = gp.crop.getCropImage(gp.land.getCropID(slot), 4);
+                        posX = (col + 3) * gp.tileSize;
+                        posY = (row + 6) * gp.tileSize;
+                        targetY = posY - 28;
+                        drawEffect = true;
                         try {
-                            Main.socketHandler.write("harvest=" + gp.land.getCropID(col, row) + "=" + gp.land.getSlot(col, row));
+                            Main.socketHandler.write("harvest=" + gp.land.getCropID(slot) + "=" + gp.land.getSlot(slot));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -151,6 +168,20 @@ public class EventHandler {
                 gp.gameState = gp.buyLand;
                 break;
         }
+    }
+
+    public void draw(Graphics2D g2) {
+        if (drawEffect) {
+            draw(g2, effect, posX, posY);
+            posY-=2;
+        }
+        if (posY == targetY) {
+            drawEffect = false;
+        }
+    }
+
+    public void draw(Graphics2D g2, BufferedImage image, int x, int y) {
+        g2.drawImage(image, x, y, null);
     }
 
 //    public void teleport(int map, int col, int row) {

@@ -7,17 +7,17 @@ import java.awt.image.BufferedImage;
 import java.sql.Timestamp;
 
 public class Land {
-    private int[][] slot;
-    private int[][] state;
-    private int[][] cropID;
-    private Timestamp[][] plantTime;
-    private int[][] waterLevel;
-    private int[][] landPrice = new int[8][4];
+    private int[] slot;
+    private int[] state;
+    private Integer[] cropID;
+    private Timestamp[] plantTime;
+    private int[] waterLevel;
+    private int[] landPrice = new int[32];
     private BufferedImage tilledDirt, sign;
     private int haveLand;
-    private boolean[][] harvestable = new boolean[8][4];
+    private boolean[] harvestable = new boolean[32];
 
-    public Land(int[][] slot, int[][] state, int[][] cropID, Timestamp[][] plantTime, int[][] waterLevel) {
+    public Land(int[] slot, int[] state, Integer[] cropID, Timestamp[] plantTime, int[] waterLevel) {
 
         this.slot = slot;
         this.state = state;
@@ -31,44 +31,44 @@ public class Land {
         this.haveLand = countLand();
     }
 
-    public int getSlot(int i, int j) {
-        return slot[i][j];
+    public int getSlot(int slot) {
+        return this.slot[slot];
     }
 
-    public int getState(int i, int j) {
-        return state[i][j];
+    public int getState(int slot) {
+        return state[slot];
     }
 
-    public int getCropID(int i, int j) {
-        return cropID[i][j];
+    public Integer getCropID(int slot) {
+        return cropID[slot];
     }
 
-    public Timestamp getPlantTime(int i, int j) {
-        return plantTime[i][j];
+    public Timestamp getPlantTime(int slot) {
+        return plantTime[slot];
     }
 
-    public int getWaterLevel(int i, int j) {
-        return waterLevel[i][j];
+    public int getWaterLevel(int slot) {
+        return waterLevel[slot];
     }
 
-    public int getLandPrice(int i, int j) {
-        return landPrice[i][j];
+    public int getLandPrice(int slot) {
+        return landPrice[slot];
     }
 
-    public void setState(int i, int j, int state) {
-        this.state[i][j] = state;
+    public void setState(int slot, int state) {
+        this.state[slot] = state;
     }
 
-    public void setCropID(int i, int j, int cropID) {
-        this.cropID[i][j] = cropID;
+    public void setCropID(int slot, Integer cropID) {
+        this.cropID[slot] = cropID;
     }
 
-    public void setPlantTime(int i, int j, Timestamp plantTime) {
-        this.plantTime[i][j] = plantTime;
+    public void setPlantTime(int slot, Timestamp plantTime) {
+        this.plantTime[slot] = plantTime;
     }
 
-    public void setWaterLevel(int i, int j, int waterLevel) {
-        this.waterLevel[i][j] = waterLevel;
+    public void setWaterLevel(int slot, int waterLevel) {
+        this.waterLevel[slot] = waterLevel;
     }
 
     public BufferedImage getSign() {
@@ -87,19 +87,19 @@ public class Land {
         this.haveLand = haveLand;
     }
 
-    public void setHarvestable(int i, int j, boolean harvestable) {
-        this.harvestable[i][j] = harvestable;
+    public void setHarvestable(int slot, boolean harvestable) {
+        this.harvestable[slot] = harvestable;
     }
 
-    public boolean getHarvestable(int i, int j) {
-        return harvestable[i][j];
+    public boolean getHarvestable(int slot) {
+        return harvestable[slot];
     }
 
     public int countLand() {
         int output = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 4; j++)
-                if (getState(i, j) == 1) {
+                if (getState(i * 4 + j) == 1) {
                     output++;
                 }
         }
@@ -109,8 +109,8 @@ public class Land {
     public void setSign() {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 4; j++)
-                if (slot[i][j] == haveLand)
-                    state[i][j] = 2;
+                if (slot[i * 4 + j] == haveLand)
+                    state[i * 4 + j] = 2;
     }
 
     public BufferedImage setup(String imagePath) {
@@ -131,10 +131,10 @@ public class Land {
         int lastPrice = 0;
         for (int j = 0; j < 4; j++)
             for (int i = 1; i < 8; i++) {
-                this.landPrice[i][j] = lastPrice + delta;
+                this.landPrice[i * 4 + j] = lastPrice + delta;
                 delta += 500;
-                lastPrice = landPrice[i][j];
-//                System.out.println(landPrice[i][j]);
+                lastPrice = landPrice[i * 4 + j];
+//                System.out.println(landPrice[slot]);
             }
     }
 }

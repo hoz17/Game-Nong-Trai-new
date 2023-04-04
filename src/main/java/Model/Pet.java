@@ -1,7 +1,9 @@
 package Model;
 
 import Controller.GamePanel;
+import Controller.UtilityTool;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -18,7 +20,17 @@ public class Pet extends Entity {
 //        worldX =gp.tileSize * 10 - 16;
 //        worldY = gp.tileSize * 12;
     }
-
+    public BufferedImage setup(String imagePath) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image, 32, 32);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
     public void getImage(int petID) {
         up1 = setup("/Pet/" + petID + "/up1");
         up2 = setup("/Pet/" + petID + "/up2");
@@ -66,7 +78,7 @@ public class Pet extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, 48, 48, null);
+        g2.drawImage(image, screenX, screenY, 32, 32, null);
 //        g2.setColor(Color.black);
 //        g2.drawRect(worldX, worldY, solidArea.width, solidArea.height);
     }

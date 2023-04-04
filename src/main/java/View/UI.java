@@ -1,4 +1,289 @@
 package View;
 
+import Controller.GamePanel;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.IOException;
+
 public class UI {
+    public int titleScreenState = 0;// 0 : the first screen ; 1 : the second .....
+    public String currentDialogue = "";
+    public int commandNum = 0;
+    public String notification = "";
+    public boolean notificationOn = false;
+    public int indexSeed = 4;
+    public int selectS = 0;
+    public int posSeed;
+    public int selectCol;
+    public int cropID = 0;
+    GamePanel gp;
+    Font arial_40, arial_80B;
+    Graphics2D g2;
+
+    public UI(GamePanel gp) {
+        this.gp = gp;
+        arial_40 = new Font("Arial", Font.PLAIN, 40);
+        arial_80B = new Font("Arial", Font.BOLD, 80);
+    }
+
+    public void draw(Graphics2D g2) {
+        this.g2 = g2;
+        g2.setFont(arial_40);
+        g2.setColor(Color.white);
+        //Title State
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        } else if (gp.gameState == gp.pauseState) {
+            //Pause State
+            drawPauseScreen();
+        } else if (gp.gameState == gp.dialogueState) {
+            //Dialouge State
+//            drawDialougeScreen();
+//            subState = 0;
+        } else if (gp.gameState == gp.optionsState) {
+            //Option State
+//            drawmessenger();
+//            drawOptionScreen();
+        } else if (gp.gameState == gp.selectSeed) {
+            //Seed Selection State
+            drawSeedSelection();
+        } else if (gp.gameState == gp.inventoryState) {
+//            drawInventory(gp.player, false);
+        } else if (gp.gameState == gp.tradeState) {
+//            drawTradeScreen();
+        } else if (gp.gameState == gp.buyLand) {
+            //Buy Land State
+            buyLandState();
+        } else if (gp.gameState == gp.selectTool) {
+            //Select Tool State
+            drawSelectTool();
+        } else if (gp.gameState == gp.notificationState) {
+            drawNotification();
+        } else if (gp.gameState == gp.playState) {
+            //Play State
+        }
+    }
+
+    public void drawTitleScreen() {
+        if (titleScreenState == 0) {
+            //Background
+            //g2.setColor(new Color(0, 0, 0));
+            try {
+                g2.drawImage(ImageIO.read(getClass().getResourceAsStream("/thumb2.png")), 0, 0, 1056, 672, null);
+            } catch (IOException e) {
+            }
+
+            //TITLE NAME
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 66F));
+            String text = "Game Nông Trại";
+            int x = getXCenterText(text);
+            int y = gp.tileSize * 3;
+            //Shadow
+            g2.setColor(Color.gray);
+            g2.drawString(text, x + 5, y + 5);
+            //Main Color
+            g2.setColor(Color.black);
+            g2.drawString(text, x, y);
+            //Image
+            x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
+            y += gp.tileSize * 2;
+//            g2.drawImage(gp.player.face, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+            //Menu
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 46F));
+
+            text = "BẮT ĐẦU";
+            x = getXCenterText(text);
+            y += gp.tileSize * 3.5;
+            g2.drawString(text, x, y);
+            if (commandNum == 0) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            String text2 = "Thoát";
+            x = getXCenterText(text);
+            y += gp.tileSize + 4;
+            g2.drawString(text2, x, y);
+            if (commandNum == 1) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+        }
+//        else if (titleScreenState == 1) {
+//            //Background
+//            g2.setColor(new Color(0, 0, 0));
+//            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+//            //Class Selection Screen
+//            g2.setColor(Color.white);
+//            g2.setFont(g2.getFont().deriveFont(42F));
+//
+//            String text = "Vui lọng chọn lớp nhân vật !";
+//            int x = getXCenterText(text);
+//            int y = gp.tileSize * 3;
+//            g2.drawString(text, x, y);
+//
+//            text = "Thần Thú Giang Nam ";
+//            x = getXCenterText(text);
+//            y += gp.tileSize * 3;
+//            g2.drawString(text, x, y);
+//            if (commandNum == 0) {
+//                g2.drawString(">", x - gp.tileSize, y);
+//            }
+//            String text2 = "Tiên Nữ Giang Nam ";
+//            x = getXCenterText(text);
+//            y += gp.tileSize;
+//            g2.drawString(text2, x, y);
+//            if (commandNum == 1) {
+//                g2.drawString(">", x - gp.tileSize, y);
+//            }
+//            text2 = "Tinh Linh Giang Nam ";
+//            x = getXCenterText(text);
+//            y += gp.tileSize;
+//            g2.drawString(text2, x, y);
+//            if (commandNum == 2) {
+//                g2.drawString(">", x - gp.tileSize, y);
+//            }
+//            text = "Quay Lại ";
+//            x = getXCenterText(text);
+//            y += gp.tileSize * 2;
+//            g2.drawString(text, x, y);
+//            if (commandNum == 3) {
+//                g2.drawString(">", x - gp.tileSize, y);
+//            }
+//        }
+    }
+
+    public int getXCenterText(String text) {
+        int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth / 2 - length / 2;
+        return x;
+    }
+
+    public void drawPauseScreen() {
+        String text = "PAUSED";
+        int x = getXCenterText(text);
+        int y = gp.screenHeight / 2;
+        g2.drawString(text, x, y);
+    }
+
+    public void buyLandState() {
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        //Sub Window
+        int frameX = gp.tileSize * 8;
+        int frameY = gp.tileSize;
+        int frameWidth = gp.tileSize * 8;
+        int frameHeight = gp.tileSize * 10;
+
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        int textX = frameX + gp.tileSize;
+        int textY = frameY + gp.tileSize * 3;
+
+        currentDialogue = "Mua ô đất này ? ";
+        for (String line : currentDialogue.split("\n")) {
+            g2.drawString(line, textX, textY);
+            textY += 40;
+        }
+        //Yes, I do :))))
+        String text = "Yes";
+        textX = getXCenterText(text);
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if (commandNum == 0) {
+            g2.drawString(">", textX - 25, textY);
+//            if (gp.keyH.enterPressed == true) {
+//                gp.gameState = gp.playState;
+//                gp.land.setHaveLand(gp.land.getHaveLand() + 1);
+//                gp.keyH.enterPressed = false;
+//            }
+        }
+        // No, Đcmm
+        text = "No";
+        textX = getXCenterText(text);
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if (commandNum == 1) {
+            g2.drawString(">", textX - 25, textY);
+//            if (gp.keyH.enterPressed == true) {
+//                gp.gameState = gp.playState;
+//                gp.keyH.enterPressed = false;
+//            }
+        }
+    }
+
+    public void drawSeedSelection() {
+        int frameX = (gp.player.worldX / gp.tileSize) * gp.tileSize - gp.tileSize * 2;
+        int frameY = (gp.player.worldY / gp.tileSize) * gp.tileSize - gp.tileSize - 24;
+        // vẽ nền ô chọn
+        int frameWidth = gp.tileSize * 5 + 12;
+        int frameHeight = gp.tileSize + 35;
+        int pointer = 0;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        g2.setFont(g2.getFont().deriveFont(16F));
+//        String text = "Cây số ";
+        int frameX2 = frameX + frameWidth / 3;
+        int frameY2 = frameY + 22 + gp.tileSize;
+
+        // vẽ hạt giống
+        frameX += 5;
+        frameY += 7;
+        int cursorX = frameX + (gp.tileSize * selectCol);
+        int cursorY = frameY;
+
+        if (indexSeed < 5) {
+            for (int i = 0; i <= indexSeed; i++) {
+                g2.drawImage(gp.crop.getCropImage(i, 5), frameX, frameY, gp.tileSize, gp.tileSize, null);
+                frameX += gp.tileSize;
+
+            }
+            if (posSeed == selectCol) {
+                g2.drawImage(gp.crop.getSelect(), cursorX, cursorY, null);
+            }
+            if (posSeed != selectCol) {
+                selectCol = 4;
+                g2.drawImage(gp.crop.getSelect(), cursorX, cursorY, null);
+            }
+            g2.drawString(gp.crop.getCropName(cropID), frameX2, frameY2);
+        }
+        if (indexSeed >= 5) {
+            for (int i = (indexSeed - 4); i <= indexSeed; i++) {
+                g2.drawImage(gp.crop.getCropImage(i, 5), frameX, frameY, gp.tileSize, gp.tileSize, null);
+                frameX += gp.tileSize;
+
+            }
+            if (posSeed == selectCol) {
+                g2.drawImage(gp.crop.getSelect(), cursorX, cursorY, null);
+            }
+            if (posSeed != selectCol) {
+                selectCol = 4;
+                g2.drawImage(gp.crop.getSelect(), cursorX, cursorY, null);
+            }
+            g2.drawString(gp.crop.getCropName(cropID), frameX2, frameY2);
+        }
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+        c = new Color(0, 0, 0);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+    }
+
+    public void drawNotification() {
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        drawSubWindow(gp.tileSize * 4, gp.tileSize, gp.tileSize * 14, gp.tileSize * 2);
+        g2.drawString(notification, gp.tileSize * 5, gp.tileSize * 2 + 10);
+    }
+
+    public void drawSelectTool() {
+        int frameX = (gp.player.worldX / gp.tileSize) * gp.tileSize - gp.tileSize * 2;
+        int frameY = (gp.player.worldY / gp.tileSize) * gp.tileSize - gp.tileSize - 24;
+        // vẽ nền ô chọn
+        int frameWidth = gp.tileSize * 5 + 12;
+        int frameHeight = gp.tileSize + 35;
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+    }
 }

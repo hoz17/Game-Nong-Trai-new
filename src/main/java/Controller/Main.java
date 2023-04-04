@@ -15,7 +15,7 @@ public class Main {
         JFrame window = new JFrame();
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setTitle("Nông trại trồng gì cũng được");
         GamePanel gp = new GamePanel();
         socketHandler = new SocketHandler(gp);
@@ -28,6 +28,7 @@ public class Main {
         serverThread = new Thread(socketHandler);
 //        thread1.start();
         serverThread.start();
+        gameThread.start();
 //        loginForm = new LoginForm();
 //        loginForm.setVisible(true);
     }

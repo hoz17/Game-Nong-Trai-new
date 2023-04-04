@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Crop;
-import Model.Inventory;
-import Model.Land;
-import Model.Player;
+import Model.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,19 +13,22 @@ import java.util.Date;
 
 public class SocketHandler implements Runnable {
     GamePanel gp;
+    Thread socketThread;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
     private BufferedWriter os;
     private BufferedReader is;
     private Socket socketOfClient;
     private int ID_Server;
-    Thread socketThread;
 
     public SocketHandler(GamePanel gp) {
         this.gp = gp;
     }
+
     public void startGameThread() {
         socketThread = new Thread(this);
         socketThread.start();
     }
+
     @Override
     public void run() {
         try {
@@ -63,6 +63,8 @@ public class SocketHandler implements Runnable {
                     System.out.println("Đăng nhập thành công");
                     Player player = getUserFromString(1, messageSplit);
                     gp.player = player;
+                    if (gp.player.getPetID() != 0)
+                        gp.pet = new Pet(gp.player.getPetID(), gp);
                     gp.loginForm.dispose();
                     write("load-player-data=");
                 }
@@ -83,15 +85,39 @@ public class SocketHandler implements Runnable {
                     int slot = Integer.parseInt(messageSplit[1]);
                     int cropID = Integer.parseInt(messageSplit[2]);
                     int newCropAmount = Integer.parseInt(messageSplit[3]);
-                    for (int i = 0; i < 8; i++)
-                        for (int j = 0; j < 4; j++) {
-                            if (gp.land.getSlot(i, j) == slot) {
-                                gp.land.setCropID(i, j, -1);
-                                gp.inventory.setCropAmount(cropID, newCropAmount);
-                            }
+                    for (int i = 0; i < 32; i++) {
+                        if (gp.land.getSlot(i) == slot) {
+                            gp.land.setCropID(i, -1);
+                            gp.inventory.setCropAmount(cropID, newCropAmount);
                         }
+                    }
                 }
+                if (messageSplit[0].equals("buy-farmland-complete")) {
+                    int slot = Integer.parseInt(messageSplit[1]);
+                    int newMoney = Integer.parseInt(messageSplit[2]);
+                    gp.player.setMoney(newMoney);
+                    gp.land.setState(slot, 1);
+                    gp.land.setHaveLand(gp.land.getHaveLand() + 1);
+                }
+                if (messageSplit[0].equals("plant-complete")) {
+                    int slot = Integer.parseInt(messageSplit[1]);
+                    Integer cropID = Integer.parseInt(messageSplit[2]);
+                    Timestamp newPlantTime;
+                    try {
+                        Date parseDate = dateFormat.parse(messageSplit[3]);
+                        Timestamp timestamp = new Timestamp(parseDate.getTime());
+                        newPlantTime = timestamp;
+                    } catch (ParseException e) {
+                        newPlantTime = null;
+                    }
+                    int newSeedAmount = Integer.parseInt(messageSplit[4]);
 
+//                    int slot = gp.dCrop.col * 4 + gp.dCrop.row;
+                    gp.land.setPlantTime(slot, newPlantTime);
+                    gp.land.setCropID(slot, cropID); //Đặt ID là ID của hạt đã chọn
+                    gp.land.setWaterLevel(slot, 0); // Đặt WaterLevel = 0 là hạt chưa phát triển
+                    gp.inventory.setSeedAmount(cropID, newSeedAmount);
+                }
 
             }
         } catch (NumberFormatException e) {
@@ -124,39 +150,38 @@ public class SocketHandler implements Runnable {
     }
 
     public Land getLandData(int start, String[] message) {
-        int[][] slot = new int[8][4];
-        int[][] state = new int[8][4];
-        int[][] cropID = new int[8][4];
-        Timestamp[][] plantTime = new Timestamp[8][4];
-        int[][] waterLevel = new int[8][4];
-        int position = start;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
-        for (int i = 0; i < 8; i++)
-            for (int j = 0; j < 4; j++) {
-                slot[i][j] = Integer.parseInt(message[position]);
-//                System.out.println(slot[i][j]);
-                position++;
-                state[i][j] = Integer.parseInt(message[position]);
-//                System.out.println(state[i][j]);
-                position++;
-                cropID[i][j] = Integer.parseInt(message[position]);
-//                System.out.println(cropID[i][j]);
-                position++;
-                try {
-                    Date parseDate = dateFormat.parse(message[position]);
-                    Timestamp timestamp = new Timestamp(parseDate.getTime());
-                    plantTime[i][j] = timestamp;
-                } catch (ParseException e) {
-                    plantTime[i][j] = null;
-                }
-//                System.out.println(plantTime[i][j]);
-                position++;
-                waterLevel[i][j] = Integer.parseInt(message[position]);
-//                System.out.println(waterLevel[i][j]);
-                position++;
+        int[] slot = new int[32];
+        int[] state = new int[32];
+        Integer[] cropID = new Integer[32];
+        Timestamp[] plantTime = new Timestamp[32];
+        int[] waterLevel = new int[32];
+
+        for (int i = 0; i < 32; i++) {
+            slot[i] = Integer.parseInt(message[i * 5 + start]);
+//            System.out.println(slot[i]);
+            state[i] = Integer.parseInt(message[i * 5 + start + 1]);
+//            System.out.println(state[i]);
+            try{
+                cropID[i] = Integer.parseInt(message[i * 5 + start + 2]);
+            }catch (Exception e){
+                cropID[i]=-1;
             }
+//                cropID[i] = Integer.parseInt(message[i * 5 + start + 2]);
+//            System.out.println(cropID[i]);
+            try {
+                Date parseDate = dateFormat.parse(message[i * 5 + start + 3]);
+                Timestamp timestamp = new Timestamp(parseDate.getTime());
+                plantTime[i] = timestamp;
+            } catch (ParseException e) {
+                plantTime[i] = null;
+            }
+//            System.out.println(plantTime[i]);
+            waterLevel[i] = Integer.parseInt(message[i * 5 + start + 4]);
+//            System.out.println(waterLevel[i]);
+        }
         return new Land(slot, state, cropID, plantTime, waterLevel);
     }
+
 
     public Crop getCropData(int start, String[] message) {
         int[] cropID = new int[21];

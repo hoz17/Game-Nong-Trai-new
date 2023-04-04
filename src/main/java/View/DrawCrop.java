@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.TimeUnit;
 
 public class DrawCrop {
     public int worldX, worldY, pointerX, pointerY, col, row, effectX, effectY;
@@ -23,21 +22,21 @@ public class DrawCrop {
         long time;
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 4; j++) {
-                if (gp.land.getCropID(i, j) != -1) {
-                    plantTime = Instant.ofEpochMilli(gp.land.getPlantTime(i, j).getTime());
+                if (gp.land.getCropID(i * 4 + j) != -1) {
+                    plantTime = Instant.ofEpochMilli(gp.land.getPlantTime(i * 4 + j).getTime());
                     time = Duration.between(plantTime, now).toHours(); //lấy thời gian đã trồng rồi chuyển sang giờ
-                    if (gp.land.getState(i, j) == 1 && gp.land.getCropID(i, j) != -1) {
-                        if (gp.land.getWaterLevel(i, j) == 3) { // xét trường hợp khi waterlevel = 3
-                            if (time >= gp.crop.getCropGrowTime(gp.land.getCropID(i, j))) {
-                                gp.land.setHarvestable(i, j, true);
-                                draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), 4), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
+                    if (gp.land.getState(i * 4 + j) == 1 && gp.land.getCropID(i * 4 + j) != -1) {
+                        if (gp.land.getWaterLevel(i * 4 + j) == 3) { // xét trường hợp khi waterlevel = 3
+                            if (time >= gp.crop.getCropGrowTime(gp.land.getCropID(i * 4 + j))) {
+                                gp.land.setHarvestable(i * 4 + j, true);
+                                draw(g2, gp.crop.getCropImage(gp.land.getCropID(i * 4 + j), 4), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
                             } else {
-                                gp.land.setHarvestable(i, j, false);
-                                draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), gp.land.getWaterLevel(i, j)), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
+                                gp.land.setHarvestable(i * 4 + j, false);
+                                draw(g2, gp.crop.getCropImage(gp.land.getCropID(i * 4 + j), gp.land.getWaterLevel(i * 4 + j)), (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
                             }
                         } else {
-                            gp.land.setHarvestable(i, j, false);
-                            draw(g2, gp.crop.getCropImage(gp.land.getCropID(i, j), gp.land.getWaterLevel(i, j) + 1),
+                            gp.land.setHarvestable(i * 4 + j, false);
+                            draw(g2, gp.crop.getCropImage(gp.land.getCropID(i * 4 + j), gp.land.getWaterLevel(i * 4 + j) + 1),
                                     (i + 3) * gp.tileSize, (j + 6) * gp.tileSize - 10);
                         }
                     }
@@ -56,7 +55,7 @@ public class DrawCrop {
             col = worldX - 3;
             row = worldY - 6;
             //System.out.println(((pointerX/gp.tileSize)-3)+" "+((pointerY/gp.tileSize)-6));
-            if (gp.land.getState(col, row) != 0) {
+            if (gp.land.getState(col * 4 + row) != 0) {
                 draw(g2, gp.crop.getSelect(), pointerX, pointerY);
                 draw(g2, gp.crop.getEGUI(), gp.player.screenX + gp.tileSize, gp.player.screenY - gp.tileSize);
             }

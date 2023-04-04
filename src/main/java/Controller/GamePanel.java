@@ -1,10 +1,7 @@
 package Controller;
 
 import Model.*;
-import View.DrawCrop;
-import View.DrawLand;
-import View.DrawMap;
-import View.LoginForm;
+import View.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +13,6 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxScreenRow = 14;
     public final int maxWorldCol = 24;
     public final int maxWorldRow = 16;
-    //Game state
     public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
@@ -27,10 +23,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int inventoryState = 7;
     public final int tradeState = 8;
     public final int buyLand = 9;
+    public final int notificationState = 10;
     final int scale = 3;
     public final int tileSize = originalTileSize * scale;// 48x48 tile
     public final int screenWidth = tileSize * maxScreenCol; // 1056 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 672 pixels
+    //Game state
+    public int gameState;
     public boolean fullScreenOn = false;
     //    static String username, password;
 //    Scanner sc = new Scanner(System.in);
@@ -42,8 +41,6 @@ public class GamePanel extends JPanel implements Runnable {
     public DrawLand dLand = new DrawLand(this);
     public DrawCrop dCrop = new DrawCrop(this);
 
-    //GameState
-    public int gameState;
 
     //Model
     public Crop crop;
@@ -62,9 +59,9 @@ public class GamePanel extends JPanel implements Runnable {
     public PlayerMovement playerMovement = new PlayerMovement(this, keyH);
     public EventHandler eHandler = new EventHandler(this, keyH);
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public UI ui = new UI(this);
 
     //System setting
-    Thread gameThread;
     Tile tile = new Tile(this);
 
     public GamePanel() {
@@ -74,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
         setDoubleBuffered(true);
         setFocusable(true); // nhận nút
         loginForm = new LoginForm(this);
+        gameState = titleState;
     }
 
     @Override
@@ -83,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (Main.gameThread != null && clock == true) {
+        while (Main.gameThread != null) {
             currentTime = System.nanoTime();
 
             delta += (currentTime - lastTime) / drawInterval;
@@ -101,10 +99,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         if (gameState == playState) {
-            playerMovement.update();
+            if (player != null) {
+                playerMovement.update();
 //            //NPC
-            if (player.getPetID() != 0) {
-                pet.update();
+                if (player.getPetID() != 0 && pet != null) {
+                    pet.update();
+                }
             }
         } else if (gameState == pauseState) {
 
@@ -127,34 +127,39 @@ public class GamePanel extends JPanel implements Runnable {
         dMap.drawArrow(g2, currentMap);
         if (currentMap == 0)
             shop.draw(g2);
-        if (player != null) {
-            if (currentMap == 1) {
-                dLand.update(g2);
-                dCrop.update(g2);
-                dCrop.checkSelect(g2);
-            }
-            player.draw(g2);
-            if (player.getPetID() != 0) {
-                pet.draw(g2);
+        if (gameState != titleState) {
+            if (player != null) {
+                if (currentMap == 1) {
+                    dLand.update(g2);
+                    dCrop.update(g2);
+                    dCrop.checkSelect(g2);
+                    eHandler.draw(g2);
+                }
+                player.draw(g2);
+                if (player.getPetID() != 0) {
+                    pet.draw(g2);
+                }
             }
         }
+        ui.draw(g2);
+        g2.dispose();
     }
 
     public void setUpGame() {
-        gameState = titleState;
+//        gameState = titleState;
         shop = new Shop();
         player.getPlayerImage(player.getGenderSkin());
         if (player.getPetID() != 0) {
-            pet = new Pet(player.getPetID(), this);
+//            pet = new Pet(player.getPetID(), this);
             pet.getImage(player.getPetID());
             aSetter.setPet();
         }
         //set player position
         aSetter.setPlayer();
-        clock = true;
-        gameState = playState;
+//        clock = true;
+//        gameState = playState;
         tile.setCollision();
-        Main.gameThread.start();
+//        Main.gameThread.start();
 //        if(clock==true) System.out.println("setupgame");
 //        gameThread.start();
 //        Main.socketHandler.startGameThread();
