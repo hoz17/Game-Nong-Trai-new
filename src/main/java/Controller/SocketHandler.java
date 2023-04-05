@@ -118,7 +118,24 @@ public class SocketHandler implements Runnable {
                     gp.land.setWaterLevel(slot, 0); // Đặt WaterLevel = 0 là hạt chưa phát triển
                     gp.inventory.setSeedAmount(cropID, newSeedAmount);
                 }
-
+                if (messageSplit[0].equals("water-complete")) {
+                    int slot = Integer.parseInt(messageSplit[1]);
+                    int newWaterLevel = Integer.parseInt(messageSplit[2]);
+                    gp.land.setWaterLevel(slot, newWaterLevel);
+                    gp.gameState = gp.playState;
+                }
+                if (messageSplit[0].equals("trample-complete")) {
+                    int slot = Integer.parseInt(messageSplit[1]);
+                    gp.land.setCropID(slot, -1);
+                    gp.gameState = gp.playState;
+                }
+                if (messageSplit[0].equals("buy-seed-complete")) {
+                    int cropID = Integer.parseInt(messageSplit[1]);
+                    int newSeedAmount = Integer.parseInt(messageSplit[2]);
+                    int newMoney = Integer.parseInt(messageSplit[3]);
+                    gp.player.setMoney(newMoney);
+                    gp.inventory.setSeedAmount(cropID, newSeedAmount);
+                }
             }
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
@@ -161,10 +178,10 @@ public class SocketHandler implements Runnable {
 //            System.out.println(slot[i]);
             state[i] = Integer.parseInt(message[i * 5 + start + 1]);
 //            System.out.println(state[i]);
-            try{
+            try {
                 cropID[i] = Integer.parseInt(message[i * 5 + start + 2]);
-            }catch (Exception e){
-                cropID[i]=-1;
+            } catch (Exception e) {
+                cropID[i] = -1;
             }
 //                cropID[i] = Integer.parseInt(message[i * 5 + start + 2]);
 //            System.out.println(cropID[i]);
@@ -172,6 +189,7 @@ public class SocketHandler implements Runnable {
                 Date parseDate = dateFormat.parse(message[i * 5 + start + 3]);
                 Timestamp timestamp = new Timestamp(parseDate.getTime());
                 plantTime[i] = timestamp;
+//                System.out.println(plantTime[i]);
             } catch (ParseException e) {
                 plantTime[i] = null;
             }

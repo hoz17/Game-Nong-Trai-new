@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.sql.Timestamp;
 
 public class Land {
+    public BufferedImage hoe;
+    public BufferedImage wateringCan;
     private int[] slot;
     private int[] state;
     private Integer[] cropID;
@@ -122,6 +124,15 @@ public class Land {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return image;
+    }
+
+    public BufferedImage getHoe() {
+        BufferedImage image = setup("/GUI/hoe");
+        return image;
+    }
+    public BufferedImage getWateringCan(){
+        BufferedImage image = setup("/GUI/Watering_can");
         return image;
     }
 

@@ -15,8 +15,22 @@ public class UI {
     public int indexSeed = 4;
     public int selectS = 0;
     public int posSeed;
+    public int playerlotCol = 0;
+    public int playerlotRow = 0;
+    public int npcSlotCol = 0;
+    public int npcSlotRow = 0;
+    public int number = 1;
     public int selectCol;
     public int cropID = 0;
+    public int subState = 0;
+    public int selectTool = 0;
+    public String message1 = "";
+    public String[] message = {"Xin chào, bạn cần gì ?",
+            "Thời tiết hôm nay thật đẹp !",
+            "Muốn mua vài món đồ không ?",
+            "Ngươi đến xem hàng hay xem ta ?",
+            "..."
+    };
     GamePanel gp;
     Font arial_40, arial_80B;
     Graphics2D g2;
@@ -51,7 +65,11 @@ public class UI {
         } else if (gp.gameState == gp.inventoryState) {
 //            drawInventory(gp.player, false);
         } else if (gp.gameState == gp.tradeState) {
-//            drawTradeScreen();
+            tradeState();
+        } else if (gp.gameState == gp.shopSellState) {
+            shopSellState();
+        } else if (gp.gameState == gp.shopBuyState) {
+            shopBuyState();
         } else if (gp.gameState == gp.buyLand) {
             //Buy Land State
             buyLandState();
@@ -211,8 +229,10 @@ public class UI {
     }
 
     public void drawSeedSelection() {
-        int frameX = (gp.player.worldX / gp.tileSize) * gp.tileSize - gp.tileSize * 2;
-        int frameY = (gp.player.worldY / gp.tileSize) * gp.tileSize - gp.tileSize - 24;
+//        int frameX = (gp.player.worldX / gp.tileSize) * gp.tileSize - gp.tileSize * 2;
+//        int frameY = (gp.player.worldY / gp.tileSize) * gp.tileSize - gp.tileSize - 24;
+        int frameX = (gp.dCrop.col + 1) * gp.tileSize - 6;
+        int frameY = (gp.dCrop.row + 5) * gp.tileSize - 30;
         // vẽ nền ô chọn
         int frameWidth = gp.tileSize * 5 + 12;
         int frameHeight = gp.tileSize + 35;
@@ -242,7 +262,7 @@ public class UI {
                 selectCol = 4;
                 g2.drawImage(gp.crop.getSelect(), cursorX, cursorY, null);
             }
-            g2.drawString(gp.crop.getCropName(cropID), frameX2, frameY2);
+            g2.drawString(gp.crop.getCropName(cropID) + ": " + gp.inventory.getSeedAmount(cropID), frameX2, frameY2);
         }
         if (indexSeed >= 5) {
             for (int i = (indexSeed - 4); i <= indexSeed; i++) {
@@ -257,7 +277,7 @@ public class UI {
                 selectCol = 4;
                 g2.drawImage(gp.crop.getSelect(), cursorX, cursorY, null);
             }
-            g2.drawString(gp.crop.getCropName(cropID), frameX2, frameY2);
+            g2.drawString(gp.crop.getCropName(cropID) + ": " + gp.inventory.getSeedAmount(cropID), frameX2, frameY2);
         }
     }
 
@@ -279,11 +299,199 @@ public class UI {
     }
 
     public void drawSelectTool() {
-        int frameX = (gp.player.worldX / gp.tileSize) * gp.tileSize - gp.tileSize * 2;
-        int frameY = (gp.player.worldY / gp.tileSize) * gp.tileSize - gp.tileSize - 24;
+        int frameX = (gp.dCrop.col + 2) * gp.tileSize + 18;
+        int frameY = (gp.dCrop.row + 5) * gp.tileSize - 30;
         // vẽ nền ô chọn
-        int frameWidth = gp.tileSize * 5 + 12;
-        int frameHeight = gp.tileSize + 35;
-        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+        int frameWidth = gp.tileSize * 2 + 21;
+        int frameHeight = gp.tileSize + 14;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        frameX += 7;
+        frameY += 7;
+
+        g2.drawImage(gp.land.getHoe(), frameX, frameY, 48, 48, null);
+        if (selectTool == 0) {
+            g2.drawImage(gp.crop.getSelect(), frameX, frameY, 48, 48, null);
+        }
+        frameX += gp.tileSize;
+        g2.drawImage(gp.land.getWateringCan(), frameX, frameY, 48, 48, null);
+        if (selectTool == 1) {
+            g2.drawImage(gp.crop.getSelect(), frameX, frameY, 48, 48, null);
+        }
+    }
+
+    public void tradeState() {
+        drawDialougeScreen(message1);
+
+        // draw window
+        int x = gp.tileSize * 15;
+        int y = gp.tileSize * 4;
+        int width = gp.tileSize * 3;
+        int height = (int) (gp.tileSize * 3.5);
+        drawSubWindow(x, y, width, height);
+
+        //draw text
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(24F));
+        g2.drawString("Mua", x, y);
+        if (subState == 0) {
+            g2.drawString(">", x - 24, y);
+        }
+        y += gp.tileSize;
+        g2.drawString("Bán", x, y);
+        if (subState == 1) {
+            g2.drawString(">", x - 24, y);
+        }
+        y += gp.tileSize;
+        g2.drawString("Rời đi", x, y);
+        if (subState == 2) {
+            g2.drawString(">", x - 24, y);
+        }
+    }
+
+    public void drawDialougeScreen(String message) {
+        //Window
+        int x = gp.tileSize * 3;
+        int y = gp.tileSize / 2;
+        int width = gp.tileSize * 14;
+        int height = gp.tileSize * 4;
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.drawString(message, x, y);
+    }
+
+    public void shopSellState() {
+
+    }
+
+    public void shopBuyState() {
+        drawInventory(1, true);
+        drawInventory(0, false);
+        int x = gp.tileSize * 12;
+        int y = gp.tileSize * 7;
+        int width = gp.tileSize * 5;
+        int height = gp.tileSize * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Túi đồ", x + 70, y + 40);
+        g2.drawString("Ví tiền: " + gp.player.getMoney(), x + 24, y + 75);
+
+        // draw price
+        int itemIndex = getItemIndexOnSlot(npcSlotCol, npcSlotRow);
+        if (itemIndex < 20) {
+            x = gp.tileSize * 12;
+            y = gp.tileSize * 9;
+            width = gp.tileSize * 5;
+            height = gp.tileSize;
+            drawSubWindow(x, y, width, height);
+            g2.drawString("Số lượng: " + number, x + 24, y + 34);
+
+            // buy an item
+//            if (gp.keyH.enterPressed == true) {
+//                if (npc.price * number > gp.player.coin) {
+//                    subState = 0;
+//                    gp.gameState = gp.dialogueState;
+//                    currentDialouge = "You need more coin to buy that !";
+//                    drawDialougeScreen();
+//                    number = 1;
+//                } else {
+//                    gp.player.coin -= (npc.price * number);
+//                    number = 1;
+//                }
+//            }
+        }
+    }
+
+    public void drawInventory(int index, boolean cursor) {
+        int frameX;
+        int frameY;
+        int frameWidth;
+        int frameHeight;
+        int slotCol;
+        int slotRow;
+
+        if (index == 0) {
+            frameX = gp.tileSize * 12;
+            frameY = gp.tileSize;
+            frameWidth = gp.tileSize * 5;
+            frameHeight = gp.tileSize * 6;
+            slotCol = playerlotCol;
+            slotRow = playerlotRow;
+        } else {
+            frameX = gp.tileSize * 5;
+            frameY = gp.tileSize;
+            frameWidth = gp.tileSize * 5;
+            frameHeight = gp.tileSize * 6;
+            slotCol = npcSlotCol;
+            slotRow = npcSlotRow;
+        }
+
+        // create inventory
+
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // slot
+        final int slotXstart = frameX + 20;
+        final int slotYstart = frameY + 20;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+        int slotSize = gp.tileSize + 3;
+
+        // draw item inventory
+        for (int i = 0; i < 20; i++) {
+            g2.drawImage(gp.crop.getCropImage(i, 5), slotX, slotY, null);
+            if (index == 0) {
+                g2.drawString(String.valueOf(gp.inventory.getSeedAmount(i)), slotX + 41, slotY + 45);
+            }
+            slotX += slotSize;
+            if (i == 3 || i == 7 || i == 11 || i == 15) {
+                slotX = slotXstart;
+                slotY += slotSize;
+            }
+        }
+
+
+        // cursor
+        if (cursor) {
+            int cursorX = slotXstart + (slotSize * slotCol);
+            int cursorY = slotYstart + (slotSize * slotRow);
+            int cursorWidth = gp.tileSize;
+            int cursorHeight = gp.tileSize;
+
+            // draw cursor
+            g2.setColor(Color.YELLOW);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+            // description frame
+            int dFrameX = frameX;
+            int dFrameY = frameY + frameHeight;
+            int dFrameWidth = frameWidth;
+            int dFrameHeight = gp.tileSize * 4;
+            drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+            // description text
+            int textX = dFrameX + 20;
+            int textY = dFrameY + gp.tileSize;
+            g2.setFont(g2.getFont().deriveFont(26F));
+            int itemIndex = getItemIndexOnSlot(slotCol, slotRow);
+            if (itemIndex < 20) {
+                g2.drawString(gp.crop.getCropName(itemIndex), textX, textY);
+                textY += 32;
+                g2.drawString("Giá mua: " + gp.crop.getCropBuyPrice(itemIndex), textX, textY);
+                textY += 32;
+                g2.drawString("Giá bán: " + gp.crop.getCropSellPrice(itemIndex), textX, textY);
+                textY += 32;
+                g2.drawString("Thời Gian: " + gp.crop.getCropGrowTime(itemIndex) + " giờ", textX, textY);
+            }
+        }
+
+
+    }
+
+    public int getItemIndexOnSlot(int slotCol, int slotRow) {
+        int itemIndex = slotCol + (slotRow * 4);
+        return itemIndex;
     }
 }

@@ -3,6 +3,7 @@ package Controller;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class EventHandler {
     public int posX, posY, targetY;
@@ -55,6 +56,8 @@ public class EventHandler {
                 gp.pet.worldX = gp.player.worldX - 48;
                 gp.pet.worldY = gp.player.worldY - 48;
             }
+        } else if (gp.currentMap == 0 && (hit(15, 7, "any") || hit(16, 7, "any"))) {
+
         }
 //         else if (gp.currentMap == 1 && keyH.ePressed == true) {
 //            gp.crop.event(gp, keyH);
@@ -120,13 +123,22 @@ public class EventHandler {
     }
 
     public void event(GamePanel gp) {
-        if ((gp.player.screenX < gp.tileSize * 11 && gp.player.screenX > gp.tileSize * 3) &&
-                (gp.player.screenY < gp.tileSize * 10 && gp.player.screenY > gp.tileSize * 6)) {
-            //System.out.println(col+ " " + row);
+        if (gp.currentMap == 0) {
+            if (hit(15, 7, "any") || hit(16, 7, "any")) {
+                int random = new Random().nextInt(5);
+                gp.ui.message1 = gp.ui.message[random];
+                gp.gameState = gp.tradeState;
+            }
+        } else if (gp.currentMap == 1) {
+            if ((gp.player.screenX < gp.tileSize * 11 && gp.player.screenX > gp.tileSize * 3) &&
+                    (gp.player.screenY < gp.tileSize * 10 && gp.player.screenY > gp.tileSize * 6)) {
+                //System.out.println(col+ " " + row);
 //            if (gp.keyH.ePressed == true) {
-            interact(gp.land.getState(gp.dCrop.col * 4 + gp.dCrop.row));
+
+                interact(gp.land.getState(gp.dCrop.col * 4 + gp.dCrop.row));
 
 //            keyH.ePressed = false;
+            }
         }
     }
 
@@ -173,7 +185,7 @@ public class EventHandler {
     public void draw(Graphics2D g2) {
         if (drawEffect) {
             draw(g2, effect, posX, posY);
-            posY-=2;
+            posY -= 2;
         }
         if (posY == targetY) {
             drawEffect = false;

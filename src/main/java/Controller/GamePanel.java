@@ -21,9 +21,11 @@ public class GamePanel extends JPanel implements Runnable {
     public final int dialogueState = 5;
     public final int optionsState = 6;
     public final int inventoryState = 7;
-    public final int tradeState = 8;
+    public final int shopBuyState = 8;
     public final int buyLand = 9;
     public final int notificationState = 10;
+    public final int shopSellState = 11;
+    public final int tradeState = 12;
     final int scale = 3;
     public final int tileSize = originalTileSize * scale;// 48x48 tile
     public final int screenWidth = tileSize * maxScreenCol; // 1056 pixels
@@ -135,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
                     dCrop.checkSelect(g2);
                     eHandler.draw(g2);
                 }
+                dCrop.drawEGUI(g2);
                 player.draw(g2);
                 if (player.getPetID() != 0) {
                     pet.draw(g2);

@@ -38,6 +38,18 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.selectSeed) {
             selectSeed(code);
         }
+        if (gp.gameState == gp.selectTool) {
+            selectTool(code);
+        }
+        if (gp.gameState == gp.tradeState) {
+            tradeState(code);
+        }
+        if (gp.gameState == gp.shopBuyState) {
+            shopBuyState(code);
+        }
+        if (gp.gameState == gp.shopSellState) {
+            shopSellState(code);
+        }
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
@@ -124,6 +136,8 @@ public class KeyHandler implements KeyListener {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    gp.ui.npcSlotCol = 0;
+                    gp.ui.npcSlotRow = 0;
                 } else {
                     gp.ui.notification = "Bạn không đủ tiền để thực hiện điều này!";
                     gp.gameState = gp.notificationState;
@@ -149,8 +163,12 @@ public class KeyHandler implements KeyListener {
 
     public void selectSeed(int code) {
         if (code == KeyEvent.VK_A) {
-            gp.ui.posSeed--;
-            gp.ui.selectS--;
+            if (gp.ui.posSeed > 0)
+                gp.ui.posSeed--;
+            if (gp.ui.selectS > 0)
+                gp.ui.selectS--;
+            if (gp.ui.selectCol > 0)
+                gp.ui.selectCol--;
             gp.ui.selectCol--;
             if (gp.ui.cropID > 0)
                 gp.ui.cropID--;
@@ -159,15 +177,6 @@ public class KeyHandler implements KeyListener {
             }
             if (i <= 0) {
                 gp.ui.indexSeed--;
-            }
-            if (gp.ui.posSeed <= 0) {
-                gp.ui.posSeed = 0;
-            }
-            if (gp.ui.selectCol <= 0) {
-                gp.ui.selectCol = 0;
-            }
-            if (gp.ui.selectS <= 0) {
-                gp.ui.selectS = 0;
             }
             if (gp.ui.indexSeed <= 4) {
                 gp.ui.indexSeed = 4;
@@ -226,5 +235,92 @@ public class KeyHandler implements KeyListener {
             gp.ui.notification = "";
             gp.gameState = gp.playState;
         }
+    }
+
+    public void selectTool(int code) {
+        if (code == KeyEvent.VK_A) {
+            if (gp.ui.selectTool > 0)
+                gp.ui.selectTool--;
+        }
+        if (code == KeyEvent.VK_D) {
+            if (gp.ui.selectTool < 1)
+                gp.ui.selectTool++;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            int slot = gp.dCrop.col * 4 + gp.dCrop.row;
+            try {
+                if (gp.ui.selectTool == 0) {
+                    Main.socketHandler.write("trample=" + slot);
+                }
+                if (gp.ui.selectTool == 1) {
+                    Main.socketHandler.write("water=" + slot);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void tradeState(int code) {
+        if (code == KeyEvent.VK_W) {
+            if (gp.ui.subState > 0)
+                gp.ui.subState--;
+        }
+        if (code == KeyEvent.VK_S) {
+            if (gp.ui.subState < 2)
+                gp.ui.subState++;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            switch (gp.ui.subState) {
+                case 0:
+                    gp.gameState = gp.shopBuyState;
+                    break;
+                case 1:
+                    gp.gameState = gp.shopSellState;
+                    break;
+                case 2:
+                    gp.gameState = gp.playState;
+                    break;
+            }
+        }
+    }
+
+    public void shopBuyState(int code) {
+        if (code == KeyEvent.VK_W)
+            if (gp.ui.npcSlotRow > 0)
+                gp.ui.npcSlotRow--;
+        if (code == KeyEvent.VK_S)
+            if (gp.ui.npcSlotRow < 4)
+                gp.ui.npcSlotRow++;
+        if (code == KeyEvent.VK_A)
+            if (gp.ui.npcSlotCol > 0)
+                gp.ui.npcSlotCol--;
+        if (code == KeyEvent.VK_D)
+            if (gp.ui.npcSlotCol < 3)
+                gp.ui.npcSlotCol++;
+        if (code == KeyEvent.VK_LEFT)
+            if (gp.ui.number > 0)
+                gp.ui.number--;
+        if (code == KeyEvent.VK_RIGHT)
+            if (gp.ui.number < 10)
+                gp.ui.number++;
+        if (code == KeyEvent.VK_ENTER) {
+            int slot = gp.ui.npcSlotCol + gp.ui.npcSlotRow * 4;
+            if (gp.player.getMoney() < gp.crop.getCropBuyPrice(slot) * gp.ui.number) {
+                gp.ui.notification = "Bạn không đủ tiền";
+                gp.gameState = gp.notificationState;
+            } else {
+                try {
+                    Main.socketHandler.write("buy-seed=" + slot + "=" + gp.ui.number);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                gp.ui.number = 1;
+            }
+        }
+    }
+
+    public void shopSellState(int code) {
+
     }
 }
