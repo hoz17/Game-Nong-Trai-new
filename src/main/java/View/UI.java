@@ -196,7 +196,7 @@ public class UI {
         int textX = frameX + gp.tileSize;
         int textY = frameY + gp.tileSize * 3;
 
-        currentDialogue = "Mua ô đất này ? ";
+        currentDialogue = "Mua ô đất này\nvới giá "+gp.land.getLandPrice(gp.dCrop.col*4+gp.dCrop.row)+" ? ";
         for (String line : currentDialogue.split("\n")) {
             g2.drawString(line, textX, textY);
             textY += 40;
@@ -443,7 +443,7 @@ public class UI {
         for (int i = 0; i < 20; i++) {
             g2.drawImage(gp.crop.getCropImage(i, 5), slotX, slotY, null);
             if (index == 0) {
-                g2.drawString(String.valueOf(gp.inventory.getSeedAmount(i)), slotX + 41, slotY + 45);
+                g2.drawString("" + gp.inventory.getSeedAmount(i), slotX + 41, slotY + 45);
             }
             slotX += slotSize;
             if (i == 3 || i == 7 || i == 11 || i == 15) {

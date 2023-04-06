@@ -14,7 +14,7 @@ import java.util.Date;
 public class SocketHandler implements Runnable {
     GamePanel gp;
     Thread socketThread;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
     private BufferedWriter os;
     private BufferedReader is;
     private Socket socketOfClient;
@@ -155,15 +155,15 @@ public class SocketHandler implements Runnable {
     }
 
     public Inventory getInventoryData(int start, String[] message) {
-        int cropID[] = new int[20];
-        int seedAmount[] = new int[20];
-        int cropAmount[] = new int[20];
+        int[] cropID = new int[20];
+        int[] seedAmount = new int[20];
+        int[] cropAmount = new int[20];
         for (int i = 0; i < 20; i++) {
             cropID[i] = Integer.parseInt(message[i * 3 + start]);
             cropAmount[i] = Integer.parseInt(message[i * 3 + start + 1]);
             seedAmount[i] = Integer.parseInt(message[i * 3 + start + 2]);
         }
-        return new Inventory(cropID, seedAmount, cropAmount);
+        return new Inventory(cropID, cropAmount, seedAmount);
     }
 
     public Land getLandData(int start, String[] message) {
@@ -186,6 +186,7 @@ public class SocketHandler implements Runnable {
 //                cropID[i] = Integer.parseInt(message[i * 5 + start + 2]);
 //            System.out.println(cropID[i]);
             try {
+//                System.out.println(message[i * 5 + start + 3]);
                 Date parseDate = dateFormat.parse(message[i * 5 + start + 3]);
                 Timestamp timestamp = new Timestamp(parseDate.getTime());
                 plantTime[i] = timestamp;

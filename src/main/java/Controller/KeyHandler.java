@@ -163,12 +163,9 @@ public class KeyHandler implements KeyListener {
 
     public void selectSeed(int code) {
         if (code == KeyEvent.VK_A) {
-            if (gp.ui.posSeed > 0)
-                gp.ui.posSeed--;
-            if (gp.ui.selectS > 0)
-                gp.ui.selectS--;
-            if (gp.ui.selectCol > 0)
-                gp.ui.selectCol--;
+            gp.ui.posSeed--;
+            gp.ui.selectS--;
+
             gp.ui.selectCol--;
             if (gp.ui.cropID > 0)
                 gp.ui.cropID--;
@@ -177,6 +174,15 @@ public class KeyHandler implements KeyListener {
             }
             if (i <= 0) {
                 gp.ui.indexSeed--;
+            }
+            if (gp.ui.posSeed <= 0) {
+                gp.ui.posSeed = 0;
+            }
+            if (gp.ui.selectCol <= 0) {
+                gp.ui.selectCol = 0;
+            }
+            if (gp.ui.selectS <= 0) {
+                gp.ui.selectS = 0;
             }
             if (gp.ui.indexSeed <= 4) {
                 gp.ui.indexSeed = 4;
@@ -253,7 +259,9 @@ public class KeyHandler implements KeyListener {
                     Main.socketHandler.write("trample=" + slot);
                 }
                 if (gp.ui.selectTool == 1) {
-                    Main.socketHandler.write("water=" + slot);
+                    if (gp.land.getWaterLevel(slot) < 3)
+                        Main.socketHandler.write("water=" + slot);
+                    else gp.gameState = gp.playState;
                 }
             } catch (Exception e) {
                 e.printStackTrace();

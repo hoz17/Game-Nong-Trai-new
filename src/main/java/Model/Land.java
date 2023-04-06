@@ -31,6 +31,13 @@ public class Land {
         this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
         this.sign = setup("/Tile/Decoration/Sign");
         this.haveLand = countLand();
+//        debug();
+    }
+
+    public void debug() {
+        for (int i = 0; i < 32; i++) {
+            System.out.println(plantTime[i]);
+        }
     }
 
     public int getSlot(int slot) {
@@ -131,7 +138,8 @@ public class Land {
         BufferedImage image = setup("/GUI/hoe");
         return image;
     }
-    public BufferedImage getWateringCan(){
+
+    public BufferedImage getWateringCan() {
         BufferedImage image = setup("/GUI/Watering_can");
         return image;
     }
@@ -140,13 +148,12 @@ public class Land {
     public void calculateLandPrice() {
         int delta = 500;
         int lastPrice = 0;
-        for (int j = 0; j < 4; j++)
-            for (int i = 1; i < 8; i++) {
-                this.landPrice[i * 4 + j] = lastPrice + delta;
-                delta += 500;
-                lastPrice = landPrice[i * 4 + j];
-//                System.out.println(landPrice[slot]);
-            }
+        for (int i = 4; i < 32; i++) {
+            this.landPrice[i] = lastPrice + delta;
+            delta += 500;
+            lastPrice = landPrice[i];
+            System.out.println(landPrice[i]);
+        }
     }
 }
 

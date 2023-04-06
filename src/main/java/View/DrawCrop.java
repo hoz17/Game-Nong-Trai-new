@@ -48,6 +48,7 @@ public class DrawCrop {
         if (gp.currentMap == 1 &&
                 (gp.player.screenX < gp.tileSize * 11 && gp.player.screenX > gp.tileSize * 3) &&
                 (gp.player.screenY < gp.tileSize * 10 && gp.player.screenY > gp.tileSize * 6)) {
+
             worldX = (gp.player.screenX) / gp.tileSize;
             worldY = (gp.player.screenY) / gp.tileSize;
             pointerX = worldX * gp.tileSize;
@@ -56,8 +57,20 @@ public class DrawCrop {
             row = worldY - 6;
             //System.out.println(((pointerX/gp.tileSize)-3)+" "+((pointerY/gp.tileSize)-6));
             if (gp.land.getState(col * 4 + row) != 0) {
+//                Timestamp now = new Timestamp(System.currentTimeMillis());
+//                long timePassed = (now.getTime() - gp.land.getPlantTime(col * 4 + row).getTime()) / 1000;
+//                String remainTime;
+//                long remainingTimeSecond = gp.crop.getCropGrowTime(col * 4 + row) * 3600 - timePassed;
+//                if(remainingTimeSecond >0) {
+//                    remainTime = String.format("%02d:%02d:%02d", remainingTimeSecond / 3600, (remainingTimeSecond % 3600) / 60, remainingTimeSecond % 60);
+//                }
+//                else remainTime = "Có thể thu hoạch !";
                 draw(g2, gp.crop.getSelect(), pointerX, pointerY);
                 draw(g2, gp.crop.getEGUI(), gp.player.screenX + gp.tileSize, gp.player.screenY - gp.tileSize);
+                if (gp.land.getHarvestable(col * 4 + row)) {
+                    g2.drawString("Có thể thu hoạch !", pointerX - 22, pointerY - 20);
+
+                }
             }
         }
 //        else if (gp.currentMap == 0) {

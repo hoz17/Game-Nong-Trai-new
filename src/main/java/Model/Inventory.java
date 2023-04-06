@@ -1,13 +1,15 @@
 package Model;
 
 public class Inventory {
-    private int cropID[] = new int[20];
-    private int cropAmount[] = new int[20];
-    private int seedAmount[] = new int[20];
-    public Inventory( int[] cropID, int[] cropAmount, int[] seedAmount) {
+    private int[] cropID;
+    private int[] cropAmount;
+    private int[] seedAmount;
+
+    public Inventory(int[] cropID, int[] cropAmount, int[] seedAmount) {
         this.cropID = cropID;
         this.cropAmount = cropAmount;
         this.seedAmount = seedAmount;
+
     }
 
 //    public Inventory(int userID) {
@@ -46,11 +48,11 @@ public class Inventory {
 //        this.cropID[slot] = cropID;
 //    }
 
-    public void setCropAmount(int cropID,int cropAmount) {
+    public void setCropAmount(int cropID, int cropAmount) {
         this.cropAmount[cropID] = cropAmount;
     }
 
-    public void setSeedAmount(int cropID,int seedAmount) {
+    public void setSeedAmount(int cropID, int seedAmount) {
         this.seedAmount[cropID] = seedAmount;
     }
 }
