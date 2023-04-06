@@ -307,28 +307,89 @@ public class KeyHandler implements KeyListener {
             if (gp.ui.npcSlotCol < 3)
                 gp.ui.npcSlotCol++;
         if (code == KeyEvent.VK_LEFT)
-            if (gp.ui.number > 0)
-                gp.ui.number--;
+            if (gp.ui.buyNumber > 0)
+                gp.ui.buyNumber--;
         if (code == KeyEvent.VK_RIGHT)
-            if (gp.ui.number < 10)
-                gp.ui.number++;
+            if (gp.ui.buyNumber < 10)
+                gp.ui.buyNumber++;
         if (code == KeyEvent.VK_ENTER) {
-            int slot = gp.ui.npcSlotCol + gp.ui.npcSlotRow * 4;
-            if (gp.player.getMoney() < gp.crop.getCropBuyPrice(slot) * gp.ui.number) {
-                gp.ui.notification = "Bạn không đủ tiền";
-                gp.gameState = gp.notificationState;
-            } else {
-                try {
-                    Main.socketHandler.write("buy-seed=" + slot + "=" + gp.ui.number);
-                } catch (IOException e) {
-                    e.printStackTrace();
+            if (gp.ui.buyNumber > 0) {
+                int slot = gp.ui.npcSlotCol + gp.ui.npcSlotRow * 4;
+                if (gp.player.getMoney() < gp.crop.getCropBuyPrice(slot) * gp.ui.buyNumber) {
+                    gp.ui.notification = "Bạn không đủ tiền";
+                    gp.gameState = gp.notificationState;
+                } else {
+                    try {
+                        Main.socketHandler.write("buy-seed=" + slot + "=" + gp.ui.buyNumber);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    gp.ui.buyNumber = 1;
                 }
-                gp.ui.number = 1;
             }
         }
     }
 
     public void shopSellState(int code) {
-
+        int id = gp.ui.getItemIndexOnSlot(gp.ui.playerlotCol, gp.ui.playerlotRow);
+        if (code == KeyEvent.VK_W) {
+            if (gp.ui.playerlotRow > 0) {
+                gp.ui.playerlotRow--;
+                gp.ui.sellNumber = 0;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            if (gp.ui.playerlotRow < 4) {
+                gp.ui.playerlotRow++;
+                gp.ui.sellNumber = 0;
+            }
+        }
+        if (code == KeyEvent.VK_A) {
+            if (gp.ui.playerlotCol > 0) {
+                gp.ui.playerlotCol--;
+                gp.ui.sellNumber = 0;
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if (gp.ui.playerlotCol < 3) {
+                gp.ui.playerlotCol++;
+                gp.ui.sellNumber = 0;
+            }
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            if (gp.ui.sellNumber > 0)
+                gp.ui.sellNumber--;
+        }
+        if (code == KeyEvent.VK_RIGHT) {
+            if (gp.ui.sellNumber < gp.inventory.getCropAmount(id))
+                gp.ui.sellNumber++;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.sellNumber > 0) {
+                try {
+                    Main.socketHandler.write("sell-crop=" + id + "=" + gp.ui.sellNumber);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                gp.ui.sellNumber = 0;
+            }
+//            else {
+//                gp.ui.notification = "Bạn không đủ trong kho !";
+//                gp.gameState = gp.notificationState;
+//            }
+        }
+        // sell an item
+//        if (gp.keyH.enterPressed) {
+//            if (buyNumber > gp.player.inventory.size()) {
+//                subState = 0;
+//                gp.gameState = gp.dialogueState;
+//                currentDialouge = "You cannot sell an equipped item !";
+//                drawDialougeScreen();
+//                buyNumber = 1;
+//            } else {
+//                gp.player.coin += (npc.price * sellNumber + 20);
+//                buyNumber = 1;
+//            }
+//        }
     }
 }

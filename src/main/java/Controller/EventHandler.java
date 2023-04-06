@@ -173,6 +173,7 @@ public class EventHandler {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        gp.land.setHarvestable(slot, false);
                     } else gp.gameState = gp.selectTool;
                 }
                 break;

@@ -136,6 +136,13 @@ public class SocketHandler implements Runnable {
                     gp.player.setMoney(newMoney);
                     gp.inventory.setSeedAmount(cropID, newSeedAmount);
                 }
+                if (messageSplit[0].equals("sell-seed-complete")) {
+                    int cropID = Integer.parseInt(messageSplit[1]);
+                    int newCropAmount = Integer.parseInt(messageSplit[2]);
+                    int newMoney = Integer.parseInt(messageSplit[3]);
+                    gp.player.setMoney(newMoney);
+                    gp.inventory.setCropAmount(cropID, newCropAmount);
+                }
             }
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);

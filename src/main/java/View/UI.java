@@ -19,7 +19,8 @@ public class UI {
     public int playerlotRow = 0;
     public int npcSlotCol = 0;
     public int npcSlotRow = 0;
-    public int number = 1;
+    public int buyNumber = 0;
+    public int sellNumber = 0;
     public int selectCol;
     public int cropID = 0;
     public int subState = 0;
@@ -196,7 +197,7 @@ public class UI {
         int textX = frameX + gp.tileSize;
         int textY = frameY + gp.tileSize * 3;
 
-        currentDialogue = "Mua ô đất này\nvới giá "+gp.land.getLandPrice(gp.dCrop.col*4+gp.dCrop.row)+" ? ";
+        currentDialogue = "Mua ô đất này\nvới giá " + gp.land.getLandPrice(gp.dCrop.col * 4 + gp.dCrop.row) + " ? ";
         for (String line : currentDialogue.split("\n")) {
             g2.drawString(line, textX, textY);
             textY += 40;
@@ -364,12 +365,31 @@ public class UI {
     }
 
     public void shopSellState() {
+        drawInventory(0, true, false);
+// draw coin
+        int x = gp.tileSize * 12;
+        int y = gp.tileSize * 11;
+        int width = gp.tileSize * 5;
+        int height = gp.tileSize;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Ví tiền: " + gp.player.getMoney(), x + 24, y + 35);
 
+        // draw price
+        int itemIndex = getItemIndexOnSlot(playerlotCol, playerlotRow);
+        if (itemIndex < 20) {
+            x = (int) (gp.tileSize * 13.8);
+            y = (int) (gp.tileSize * 6.5);
+            width = (int) (gp.tileSize * 3.3);
+            height = gp.tileSize;
+            drawSubWindow(x, y, width, height);
+            g2.drawString("Số lượng: " + sellNumber, x + 10, y + 32);
+
+        }
     }
 
     public void shopBuyState() {
-        drawInventory(1, true);
-        drawInventory(0, false);
+        drawInventory(1, true, true);
+        drawInventory(0, false, true);
         int x = gp.tileSize * 12;
         int y = gp.tileSize * 7;
         int width = gp.tileSize * 5;
@@ -386,7 +406,7 @@ public class UI {
             width = gp.tileSize * 5;
             height = gp.tileSize;
             drawSubWindow(x, y, width, height);
-            g2.drawString("Số lượng: " + number, x + 24, y + 34);
+            g2.drawString("Số lượng: " + buyNumber, x + 24, y + 34);
 
             // buy an item
 //            if (gp.keyH.enterPressed == true) {
@@ -404,7 +424,7 @@ public class UI {
         }
     }
 
-    public void drawInventory(int index, boolean cursor) {
+    public void drawInventory(int index, boolean cursor, boolean type) {
         int frameX;
         int frameY;
         int frameWidth;
@@ -443,7 +463,9 @@ public class UI {
         for (int i = 0; i < 20; i++) {
             g2.drawImage(gp.crop.getCropImage(i, 5), slotX, slotY, null);
             if (index == 0) {
-                g2.drawString("" + gp.inventory.getSeedAmount(i), slotX + 41, slotY + 45);
+                if (type) {
+                    g2.drawString("" + gp.inventory.getSeedAmount(i), slotX + 41, slotY + 45);
+                } else g2.drawString("" + gp.inventory.getCropAmount(i), slotX + 41, slotY + 45);
             }
             slotX += slotSize;
             if (i == 3 || i == 7 || i == 11 || i == 15) {
@@ -484,6 +506,10 @@ public class UI {
                 g2.drawString("Giá bán: " + gp.crop.getCropSellPrice(itemIndex), textX, textY);
                 textY += 32;
                 g2.drawString("Thời Gian: " + gp.crop.getCropGrowTime(itemIndex) + " giờ", textX, textY);
+                if (!type) {
+                    textY += 32;
+                    g2.drawString("Đang có: " + gp.inventory.getCropAmount(itemIndex), textX, textY);
+                }
             }
         }
 

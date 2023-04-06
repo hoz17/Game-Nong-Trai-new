@@ -31,13 +31,6 @@ public class Land {
         this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
         this.sign = setup("/Tile/Decoration/Sign");
         this.haveLand = countLand();
-//        debug();
-    }
-
-    public void debug() {
-        for (int i = 0; i < 32; i++) {
-            System.out.println(plantTime[i]);
-        }
     }
 
     public int getSlot(int slot) {
@@ -152,7 +145,6 @@ public class Land {
             this.landPrice[i] = lastPrice + delta;
             delta += 500;
             lastPrice = landPrice[i];
-            System.out.println(landPrice[i]);
         }
     }
 }
