@@ -125,7 +125,7 @@ public class EventHandler {
     public void event(GamePanel gp) {
         if (gp.currentMap == 0) {
             if (hit(15, 7, "any") || hit(16, 7, "any")) {
-                int random = new Random().nextInt(5);
+                int random = new Random().nextInt(gp.ui.message.length);
                 gp.ui.message1 = gp.ui.message[random];
                 gp.gameState = gp.tradeState;
             }

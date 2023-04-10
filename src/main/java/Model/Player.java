@@ -98,6 +98,8 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image, screenX, screenY, 48, 48, null);
+        g2.setFont(new Font("Bahnschrift",Font.BOLD,20));
+        g2.drawString(playerName,screenX,screenY);
 //        g2.setColor(Color.BLACK);
 //        g2.fillRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 //        g2.drawImage(image, worldX, worldY, 48, 48, null);

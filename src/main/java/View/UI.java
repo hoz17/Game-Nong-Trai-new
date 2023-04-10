@@ -25,21 +25,25 @@ public class UI {
     public int cropID = 0;
     public int subState = 0;
     public int selectTool = 0;
+    public int inventoryCol = 0;
+    public int inventoryRow = 0;
     public String message1 = "";
     public String[] message = {"Xin chào, bạn cần gì ?",
             "Thời tiết hôm nay thật đẹp !",
             "Muốn mua vài món đồ không ?",
             "Ngươi đến xem hàng hay xem ta ?",
-            "..."
+            "...",
+            "Ta vừa nhập được vài món hàng mới,\ncó muốn xem không ?"
     };
     GamePanel gp;
-    Font arial_40, arial_80B;
+    Font arial_40, arial_80B, comfortaa_20;
     Graphics2D g2;
 
     public UI(GamePanel gp) {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
+        comfortaa_20 = new Font("Comfortaa", Font.PLAIN, 20);
     }
 
     public void draw(Graphics2D g2) {
@@ -64,7 +68,7 @@ public class UI {
             //Seed Selection State
             drawSeedSelection();
         } else if (gp.gameState == gp.inventoryState) {
-//            drawInventory(gp.player, false);
+            drawInventoryState();
         } else if (gp.gameState == gp.tradeState) {
             tradeState();
         } else if (gp.gameState == gp.shopSellState) {
@@ -350,7 +354,7 @@ public class UI {
         }
     }
 
-    public void drawDialougeScreen(String message) {
+    public void drawDialougeScreen(String message1) {
         //Window
         int x = gp.tileSize * 3;
         int y = gp.tileSize / 2;
@@ -361,13 +365,16 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
         x += gp.tileSize;
         y += gp.tileSize;
-        g2.drawString(message, x, y);
+        for (String line : message1.split("\n")) {
+            g2.drawString(line, x, y);
+            y += 30;
+        }
     }
 
     public void shopSellState() {
         drawInventory(0, true, false);
 // draw coin
-        int x = gp.tileSize * 12;
+        int x = gp.tileSize * 7;
         int y = gp.tileSize * 11;
         int width = gp.tileSize * 5;
         int height = gp.tileSize;
@@ -377,7 +384,7 @@ public class UI {
         // draw price
         int itemIndex = getItemIndexOnSlot(playerlotCol, playerlotRow);
         if (itemIndex < 20) {
-            x = (int) (gp.tileSize * 13.8);
+            x = (int) (gp.tileSize * 8.8);
             y = (int) (gp.tileSize * 6.5);
             width = (int) (gp.tileSize * 3.3);
             height = gp.tileSize;
@@ -391,7 +398,7 @@ public class UI {
         drawInventory(1, true, true);
         drawInventory(0, false, true);
         int x = gp.tileSize * 12;
-        int y = gp.tileSize * 7;
+        int y = gp.tileSize * 9 + 24;
         int width = gp.tileSize * 5;
         int height = gp.tileSize * 2;
         drawSubWindow(x, y, width, height);
@@ -402,7 +409,7 @@ public class UI {
         int itemIndex = getItemIndexOnSlot(npcSlotCol, npcSlotRow);
         if (itemIndex < 20) {
             x = gp.tileSize * 12;
-            y = gp.tileSize * 9;
+            y = gp.tileSize * 8 + 24;
             width = gp.tileSize * 5;
             height = gp.tileSize;
             drawSubWindow(x, y, width, height);
@@ -431,12 +438,12 @@ public class UI {
         int frameHeight;
         int slotCol;
         int slotRow;
-
+        g2.setFont(new Font("Arial", Font.PLAIN, 20));
         if (index == 0) {
             frameX = gp.tileSize * 12;
             frameY = gp.tileSize;
             frameWidth = gp.tileSize * 5;
-            frameHeight = gp.tileSize * 6;
+            frameHeight = gp.tileSize * 8 - 24;
             slotCol = playerlotCol;
             slotRow = playerlotRow;
         } else {
@@ -464,21 +471,20 @@ public class UI {
             g2.drawImage(gp.crop.getCropImage(i, 5), slotX, slotY, null);
             if (index == 0) {
                 if (type) {
-                    g2.drawString("" + gp.inventory.getSeedAmount(i), slotX + 41, slotY + 45);
-                } else g2.drawString("" + gp.inventory.getCropAmount(i), slotX + 41, slotY + 45);
+                    g2.drawString("" + gp.inventory.getSeedAmount(i), slotX + 20, slotY + 64);
+                } else g2.drawString("" + gp.inventory.getCropAmount(i), slotX + 20, slotY + 64);
             }
             slotX += slotSize;
             if (i == 3 || i == 7 || i == 11 || i == 15) {
                 slotX = slotXstart;
-                slotY += slotSize;
+                slotY += slotSize + 15;
             }
         }
-
 
         // cursor
         if (cursor) {
             int cursorX = slotXstart + (slotSize * slotCol);
-            int cursorY = slotYstart + (slotSize * slotRow);
+            int cursorY = slotYstart + ((slotSize + 15) * slotRow);
             int cursorWidth = gp.tileSize;
             int cursorHeight = gp.tileSize;
 
@@ -512,8 +518,47 @@ public class UI {
                 }
             }
         }
+    }
 
-
+    public void drawInventoryState() {
+        int defaultX = gp.tileSize * 4;
+        int defaultY = gp.tileSize * 3;
+        int slotSizeX = gp.tileSize + 5;
+        int slotSizeY = gp.tileSize + 15;
+        int x = defaultX;
+        int y = defaultY;
+        int width = slotSizeX * 13;
+        int height = slotSizeY * 5;
+        int slotXStart = x + 10;
+        drawSubWindow(x, y, width, height);
+        x += 10;
+        y += 5;
+        for (int i = 0; i < 20; i++) {
+            g2.drawImage(gp.crop.getCropImage(i, 5), x, y, 48, 48, null);
+            x += slotSizeX;
+            if (i % 4 == 3) {
+                x = slotXStart;
+                y += slotSizeY;
+            }
+        }
+        g2.setColor(Color.yellow);
+        g2.drawRoundRect(defaultX + 10 + inventoryCol * slotSizeX, defaultY + 5 + inventoryRow * slotSizeY, 48, 48, 10, 10);
+        g2.setColor(Color.black);
+        g2.drawLine(slotXStart + slotSizeX * 4, gp.tileSize * 3 + 5, slotXStart + slotSizeX * 4, gp.tileSize * 3 + slotSizeY * 5 - 10);
+        x = defaultX + slotSizeX * 4 + 20;
+        y = defaultY + gp.tileSize;
+        g2.setFont(comfortaa_20);
+        g2.drawString(gp.crop.getCropName(inventoryCol + inventoryRow * 4), x, y);
+        y += 40;
+        g2.drawString("Số lượng hạt: " + gp.inventory.getSeedAmount(inventoryCol + inventoryRow * 4), x, y);
+        y += 40;
+        g2.drawString("Đang có: " + gp.inventory.getCropAmount(inventoryCol + inventoryRow * 4), x, y);
+        y += 40;
+        g2.drawString("Giá mua: " + gp.crop.getCropBuyPrice(inventoryCol + inventoryRow * 4), x, y);
+        y += 40;
+        g2.drawString("Giá bán: " + gp.crop.getCropSellPrice(inventoryCol + inventoryRow * 4), x, y);
+        y += 40;
+        g2.drawString("Thời gian lớn: " + gp.crop.getCropGrowTime(inventoryCol + inventoryRow * 4), x, y);
     }
 
     public int getItemIndexOnSlot(int slotCol, int slotRow) {

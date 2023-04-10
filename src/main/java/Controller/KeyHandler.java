@@ -50,6 +50,9 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.shopSellState) {
             shopSellState(code);
         }
+        if (gp.gameState == gp.inventoryState) {
+            inventoryState(code);
+        }
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
@@ -68,6 +71,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
+        }
+        if (code == KeyEvent.VK_B) {
+            gp.gameState = gp.inventoryState;
         }
         if (code == KeyEvent.VK_E) {
             gp.eHandler.event(gp);
@@ -328,6 +334,22 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
+    }
+
+    public void inventoryState(int code) {
+        if (code == KeyEvent.VK_A)
+            if (gp.ui.inventoryCol > 0)
+                gp.ui.inventoryCol--;
+        if (code == KeyEvent.VK_D)
+            if (gp.ui.inventoryCol < 3)
+                gp.ui.inventoryCol++;
+        if (code == KeyEvent.VK_W)
+            if (gp.ui.inventoryRow > 0)
+                gp.ui.inventoryRow--;
+        if (code == KeyEvent.VK_S)
+            if (gp.ui.inventoryRow < 4)
+                gp.ui.inventoryRow++;
+        System.out.println(gp.ui.inventoryCol + " " + gp.ui.inventoryRow);
     }
 
     public void shopSellState(int code) {

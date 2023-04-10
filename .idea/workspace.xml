@@ -8,12 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/EventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/EventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/SocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/SocketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Land.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Land.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Shop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/View/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/UI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/KeyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/KeyHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/SocketHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/SocketHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Land.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Land.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Shop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Shop.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/View/UI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/View/UI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,17 +42,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Code/Java/Game-Nong-Trai-new/src/main/resources&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/Code/Java/NSO/Private/Private",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Code\Java\Game-Nong-Trai-new\src\main\resources" />
