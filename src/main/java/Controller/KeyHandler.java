@@ -428,7 +428,7 @@ public class KeyHandler implements KeyListener {
 
     public void chatState(int code) {
         if (code != KeyEvent.VK_ENTER) {
-            if (Character.isLetter(input))
+            if (Character.isLetter(input)||Character.isDigit(input))
                 chatMessage += input;
             if (code == KeyEvent.VK_SPACE) {
                 chatMessage += " ";
