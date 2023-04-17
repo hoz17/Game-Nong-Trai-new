@@ -1,12 +1,12 @@
 package View;
 
 import Controller.GamePanel;
-import Controller.SocketHandler;
 import Controller.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginForm extends JFrame {
@@ -67,7 +67,7 @@ public class LoginForm extends JFrame {
         registerButton.setFont(new Font("Helvetica", Font.BOLD, 14));
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gp.loginForm.dispose();
+                gp.loginForm.setVisible(false);
                 RegistrationForm form = new RegistrationForm();
             }
         });
@@ -109,8 +109,9 @@ public class LoginForm extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
-    public void wrongUser(){
-        JOptionPane.showMessageDialog(rootPane,"Sai tài khoản hoặc mật khẩu !");
+
+    public void wrongUser() {
+        JOptionPane.showMessageDialog(rootPane, "Sai tài khoản hoặc mật khẩu !");
     }
 //    public static void main(String[] args) {
 //        login form = new login();

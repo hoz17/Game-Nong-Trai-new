@@ -7,6 +7,8 @@ import java.io.IOException;
 public class KeyHandler implements KeyListener {
     public boolean upPressed, spacePressed, downPressed, leftPressed, rightPressed,
             ePressed, enterPressed, choosePressed, closeSSelected;
+    public char input;
+    public String chatMessage = "";
     public int slot;
     GamePanel gp;
     private int i = 0;
@@ -23,6 +25,10 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        if (gp.gameState == gp.chatState) {
+
+            input = e.getKeyChar();
+        }
         if (gp.gameState == gp.playState) {
             playState(code);
         }
@@ -53,6 +59,9 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.inventoryState) {
             inventoryState(code);
         }
+        if (gp.gameState == gp.chatState) {
+            chatState(code);
+        }
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
@@ -77,6 +86,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_E) {
             gp.eHandler.event(gp);
+        }
+        if (code == KeyEvent.VK_T) {
+            gp.gameState = gp.chatState;
         }
     }
 
@@ -349,7 +361,6 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_S)
             if (gp.ui.inventoryRow < 4)
                 gp.ui.inventoryRow++;
-        System.out.println(gp.ui.inventoryCol + " " + gp.ui.inventoryRow);
     }
 
     public void shopSellState(int code) {
@@ -413,5 +424,28 @@ public class KeyHandler implements KeyListener {
 //                buyNumber = 1;
 //            }
 //        }
+    }
+
+    public void chatState(int code) {
+        if (code != KeyEvent.VK_ENTER) {
+            if (Character.isLetter(input))
+                chatMessage += input;
+            if (code == KeyEvent.VK_SPACE) {
+                chatMessage += " ";
+            }
+            if (code == KeyEvent.VK_BACK_SPACE) {
+                if (chatMessage.length() > 0)
+                    chatMessage = chatMessage.substring(0, chatMessage.length() - 1);
+            }
+        } else {
+            if (chatMessage.matches(".*\\S+.*"))
+                try {
+                    Main.socketHandler.write("world-chat=" + gp.player.getPlayerName() + "=" + chatMessage);
+                } catch (IOException e) {
+
+                }
+            chatMessage = "";
+            gp.gameState = gp.playState;
+        }
     }
 }

@@ -1,19 +1,24 @@
 package View;
 
+import Controller.UtilityTool;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 public class RegistrationForm extends JFrame {
-    private JLabel usernameLabel, passwordLabel, retypePasswordLabel, imageLabel, playerNameLabel;
+    private JLabel usernameLabel, passwordLabel, retypePasswordLabel, imageLabel, playerNameLabel, avatarLabel;
     private JTextField usernameField, playerNameField;
     private JPasswordField retypePasswordField, passwordField;
-    private JButton registerButton;
-    private JComboBox<ImageIcon> imageComboBox;
-    String[] imageNames = {"/Tile/Decoration/Bush_1.png", "/Tile/Decoration/Bush_2.png"};
+    private JButton registerButton, returnButton;
+    private JComboBox<Icon> imageComboBox;
+    private ImageIcon[] imageIcon = new ImageIcon[8];
 
     public RegistrationForm() {
+        this.setAlwaysOnTop(true);
         usernameLabel = new JLabel("Tài khoản:");
         usernameLabel.setForeground(Color.WHITE);
         usernameLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
@@ -38,12 +43,26 @@ public class RegistrationForm extends JFrame {
         imageLabel.setForeground(Color.WHITE);
         imageLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
 
-        imageComboBox = new JComboBox();
+        avatarLabel = new JLabel("Trang phục");
+        avatarLabel.setForeground(Color.WHITE);
+        avatarLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
+
+        imageComboBox = new JComboBox<>();
         imageComboBox.setMaximumRowCount(4);
-        for (int i = 0; i < 8; i++) {
-            imageComboBox.addItem(new ImageIcon("/Player/" + i + "down1.png"));
-        }
-        imageComboBox.setSelectedIndex(0); // Đặt tùy chọn đầu tiên là mặc định
+//        for (int i = 1; i < 9; i++) {
+//            imageComboBox.addItem(new ImageIcon("/Player/" + i + "/down1.png"));
+//        }
+        imageComboBox.setModel(loadImage());
+//        imageComboBox.setRenderer(new DefaultListCellRenderer() {
+//            @Override
+//            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+//                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//                label.setIcon((Icon) value);
+//                return label;
+//            }
+//        });
+        imageComboBox.setPreferredSize(new Dimension(100, 80));
+        imageComboBox.setSelectedIndex(1); // Đặt tùy chọn đầu tiên là mặc định
         imageComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Code để xử lý sự kiện khi người dùng chọn một tùy chọn từ combobox
@@ -63,6 +82,19 @@ public class RegistrationForm extends JFrame {
             }
         });
 
+        returnButton = new JButton("Trở lại");
+        returnButton.setForeground(Color.WHITE);
+        returnButton.setBackground(new Color(0, 123, 255));
+        returnButton.setBorderPainted(false);
+        returnButton.setFocusPainted(false);
+        returnButton.setFont(new Font("Helvetica", Font.BOLD, 14));
+        returnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Code to handle registration here
+                dispose();
+
+            }
+        });
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
@@ -87,30 +119,57 @@ public class RegistrationForm extends JFrame {
         panel.add(playerNameLabel, constraints);
         constraints.gridx = 1;
         panel.add(playerNameField, constraints);
-        constraints.gridx=0;
-        constraints.gridy=4;
-        panel.add(imageComboBox,constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        panel.add(avatarLabel, constraints);
+        constraints.gridx = 1;
+        panel.add(imageComboBox, constraints);
 
 
 //        constraints.gridy = 4;
 //        constraints.gridx = 1;
 //        panel.add(imageComboBox, constraints);
 
-
+        constraints.gridx = 0;
         constraints.gridy = 5;
 //        constraints.gridwidth = 2;
         panel.add(registerButton, constraints);
-        panel.setBackground(new Color(52, 58, 64));
+        constraints.gridx = 1;
+        panel.add(returnButton, constraints);
 
+        panel.setBackground(new Color(52, 58, 64));
         this.add(panel);
         this.setTitle("Registration Form");
         this.setSize(400, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        int a = 1;
     }
 
-    public static void main(String[] args) {
-        RegistrationForm form = new RegistrationForm();
+    private DefaultComboBoxModel<Icon> loadImage() {
+        DefaultComboBoxModel<Icon> dc = new DefaultComboBoxModel<Icon>();
+        for (int i = 1; i < 9; i++) {
+            dc.addElement(new ImageIcon("/Player/" + i + "/down1.png"));
+        }
+        return dc;
+    }
+
+    public BufferedImage setup(String imagePath) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image, 48, 48);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    public void getImageIcon() {
+        for (int i = 1; i < 9; i++) {
+            imageIcon[i] = new ImageIcon(setup("/Player/" + i + "/down1.png"));
+        }
     }
 }

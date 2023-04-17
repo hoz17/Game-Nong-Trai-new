@@ -8,10 +8,12 @@ import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
 public class SocketHandler implements Runnable {
+
     GamePanel gp;
     Thread socketThread;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -142,6 +144,10 @@ public class SocketHandler implements Runnable {
                     int newMoney = Integer.parseInt(messageSplit[3]);
                     gp.player.setMoney(newMoney);
                     gp.inventory.setCropAmount(cropID, newCropAmount);
+                }
+                if (messageSplit[0].equals("chat-message")) {
+                    gp.ui.chatMessage.add(new Message(messageSplit[1], messageSplit[2]));
+                    gp.ui.messageCountdown = 300;
                 }
             }
         } catch (NumberFormatException e) {

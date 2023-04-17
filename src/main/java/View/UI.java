@@ -1,10 +1,12 @@
 package View;
 
 import Controller.GamePanel;
+import Model.Message;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UI {
     public int titleScreenState = 0;// 0 : the first screen ; 1 : the second .....
@@ -35,6 +37,8 @@ public class UI {
             "...",
             "Ta vừa nhập được vài món hàng mới,\ncó muốn xem không ?"
     };
+    public ArrayList<Message> chatMessage = new ArrayList<>();
+    public int messageCountdown = 0;
     GamePanel gp;
     Font arial_40, arial_80B, comfortaa_20;
     Graphics2D g2;
@@ -44,6 +48,20 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
         comfortaa_20 = new Font("Comfortaa", Font.PLAIN, 20);
+        defaultMessage();
+    }
+
+    public void defaultMessage() {
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
+        chatMessage.add(new Message("", ""));
     }
 
     public void draw(Graphics2D g2) {
@@ -83,8 +101,12 @@ public class UI {
             drawSelectTool();
         } else if (gp.gameState == gp.notificationState) {
             drawNotification();
+        } else if (gp.gameState == gp.chatState) {
+            drawChat();
         } else if (gp.gameState == gp.playState) {
             //Play State
+            if (chatMessage != null)
+                drawChatFlow(0, gp.tileSize * 9);
         }
     }
 
@@ -545,6 +567,7 @@ public class UI {
         g2.drawRoundRect(defaultX + 10 + inventoryCol * slotSizeX, defaultY + 5 + inventoryRow * slotSizeY, 48, 48, 10, 10);
         g2.setColor(Color.black);
         g2.drawLine(slotXStart + slotSizeX * 4, gp.tileSize * 3 + 5, slotXStart + slotSizeX * 4, gp.tileSize * 3 + slotSizeY * 5 - 10);
+        // in thông tin cây
         x = defaultX + slotSizeX * 4 + 20;
         y = defaultY + gp.tileSize;
         g2.setFont(comfortaa_20);
@@ -559,10 +582,65 @@ public class UI {
         g2.drawString("Giá bán: " + gp.crop.getCropSellPrice(inventoryCol + inventoryRow * 4), x, y);
         y += 40;
         g2.drawString("Thời gian lớn: " + gp.crop.getCropGrowTime(inventoryCol + inventoryRow * 4), x, y);
+        g2.drawLine(x + 220, gp.tileSize * 3 + 5, x + 220, gp.tileSize * 3 + slotSizeY * 5 - 10);
+        // hiện thông tin người chơi
+        x = defaultX + slotSizeX * 9 - 10;
+        y = defaultY;
+        g2.drawImage(gp.player.down1, x + 48 + 40, y + 24, 48, 48, null);
+        y += 48 + 54;
+        g2.drawString("Tên: " + gp.player.getPlayerName(), x, y);
+        y += 30;
+        g2.drawString("Ví tiền: " + gp.player.getMoney(), x, y);
+        y += 30;
+        g2.drawString("Số ô đất đã mở: " + gp.land.getHaveLand(), x, y);
+        y += 30;
+        g2.drawLine(x - 15, y, x + 215, y);
+        y += 30;
+        g2.drawString("Pet", x, y);
+        y += 30;
+        if (gp.player.getPetID() == 0)
+            g2.drawString("Bạn không sở hữu thú nuôi !", x, y);
+        else
+            g2.drawImage(gp.pet.down1, x + 85, y, 32, 32, null);
+
+    }
+
+    public void drawChat() {
+        drawSubWindow(0, gp.tileSize * 13, gp.tileSize * 22, 48);
+        g2.setFont(comfortaa_20);
+        g2.drawString(gp.keyH.chatMessage, 24, gp.tileSize * 13 + 30);
+        drawChatFlow(0, gp.tileSize * 9);
     }
 
     public int getItemIndexOnSlot(int slotCol, int slotRow) {
         int itemIndex = slotCol + (slotRow * 4);
         return itemIndex;
+    }
+
+    public void drawChatFlow(int x, int y) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        int size = chatMessage.size();
+        g2.setFont(comfortaa_20);
+        if (messageCountdown > 0) {
+            g2.setColor(Color.black);
+            g2.fillRect(x, y, gp.tileSize * 6, gp.tileSize * 4);
+            g2.setColor(Color.white);
+            if (size >= 9) {
+                for (int i = size - 1; i >= size - 9; i--) {
+                    Message mes = chatMessage.get(i);
+                    if (!mes.getPlayerName().equals(""))
+                        g2.drawString(mes.getPlayerName() + ": " + mes.getMessage(), x, y + gp.tileSize * 4 - 12);
+                    y -= 20;
+                }
+            }
+//            else {
+//                for (Message mes : chatMessage) {
+//                    g2.drawString(mes.getPlayerName() + ": " + mes.getMessage(), x, y);
+//                    y -= 20;
+//                }
+//            }
+
+        }
+        messageCountdown--;
     }
 }
