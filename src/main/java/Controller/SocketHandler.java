@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -146,8 +145,15 @@ public class SocketHandler implements Runnable {
                     gp.inventory.setCropAmount(cropID, newCropAmount);
                 }
                 if (messageSplit[0].equals("chat-message")) {
-                    gp.ui.chatMessage.add(new Message(messageSplit[1], messageSplit[2]));
-                    gp.ui.messageCountdown = 300;
+                    String playerName = "", msg = "";
+                    if (!messageSplit[1].equals(""))
+                        playerName = messageSplit[1];
+                    if (!messageSplit[2].equals(""))
+                        msg = messageSplit[2];
+                    if (!playerName.equals("") && !msg.equals("")) {
+                        gp.ui.chatMessage.add(new Message(playerName, msg));
+                        gp.ui.messageCountdown = 300;
+                    }
                 }
             }
         } catch (NumberFormatException e) {
