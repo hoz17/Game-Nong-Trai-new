@@ -12,6 +12,9 @@ public class Pet extends Entity {
     GamePanel gp;
     private int petID;
 
+    public Pet() {
+    }
+
     public Pet(int petID, GamePanel gp) {
         this.gp = gp;
         this.petID = petID;
@@ -20,6 +23,7 @@ public class Pet extends Entity {
 //        worldX =gp.tileSize * 10 - 16;
 //        worldY = gp.tileSize * 12;
     }
+
     public BufferedImage setup(String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -31,6 +35,7 @@ public class Pet extends Entity {
         }
         return image;
     }
+
     public void getImage(int petID) {
         up1 = setup("/Pet/" + petID + "/up1");
         up2 = setup("/Pet/" + petID + "/up2");

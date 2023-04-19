@@ -18,6 +18,11 @@ public class Land {
     private BufferedImage tilledDirt, sign;
     private int haveLand;
     private boolean[] harvestable = new boolean[32];
+    private Timestamp[] nextWaterTime = new Timestamp[32];
+
+    public Land() {
+
+    }
 
     public Land(int[] slot, int[] state, Integer[] cropID, Timestamp[] plantTime, int[] waterLevel) {
 
@@ -31,6 +36,14 @@ public class Land {
         this.tilledDirt = setup("/Tile/Dirt/Tilled_dirt");
         this.sign = setup("/Tile/Decoration/Sign");
         this.haveLand = countLand();
+    }
+
+    public Timestamp getNextWaterTime(int slot) {
+        return this.nextWaterTime[slot];
+    }
+
+    public void setNextWaterTime(int slot, Timestamp time) {
+        this.nextWaterTime[slot] = time;
     }
 
     public int getSlot(int slot) {

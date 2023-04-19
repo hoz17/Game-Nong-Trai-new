@@ -9,7 +9,7 @@ public class EventHandler {
     public int posX, posY, targetY;
     GamePanel gp;
     KeyHandler keyH;
-    EventRect eventRect[][];
+    EventRect[][] eventRect;
     BufferedImage effect;
     boolean drawEffect = false;
 //    SocketHandler socketHandler;
@@ -56,8 +56,6 @@ public class EventHandler {
                 gp.pet.worldX = gp.player.worldX - 48;
                 gp.pet.worldY = gp.player.worldY - 48;
             }
-        } else if (gp.currentMap == 0 && (hit(15, 7, "any") || hit(16, 7, "any"))) {
-
         }
 //         else if (gp.currentMap == 1 && keyH.ePressed == true) {
 //            gp.crop.event(gp, keyH);
@@ -124,7 +122,13 @@ public class EventHandler {
 
     public void event(GamePanel gp) {
         if (gp.currentMap == 0) {
-            if (hit(15, 7, "any") || hit(16, 7, "any")) {
+            if (hit(8, 8, "any")) {
+                try {
+                    Main.socketHandler.write("view-leaderboard=");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (hit(15, 7, "any") || hit(16, 7, "any")) {
                 int random = new Random().nextInt(gp.ui.message.length);
                 gp.ui.message1 = gp.ui.message[random];
                 gp.gameState = gp.tradeState;

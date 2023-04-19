@@ -5,6 +5,9 @@ public class Inventory {
     private int[] cropAmount;
     private int[] seedAmount;
 
+    public Inventory() {
+    }
+
     public Inventory(int[] cropID, int[] cropAmount, int[] seedAmount) {
         this.cropID = cropID;
         this.cropAmount = cropAmount;

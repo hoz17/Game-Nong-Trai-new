@@ -27,6 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int shopSellState = 11;
     public final int tradeState = 12;
     public final int chatState = 13;
+    public final int duplicateLoginState = 14;
+    public final int leaderBoardState = 15;
+
     final int scale = 3;
     public final int tileSize = originalTileSize * scale;// 48x48 tile
     public final int screenWidth = tileSize * maxScreenCol; // 1056 pixels

@@ -12,6 +12,16 @@ public class Player extends Entity {
     private int genderSkin;
     private int petID;
     private int poiterX, pointerY;
+    private int pos;
+
+    public Player() {
+    }
+
+    public Player(int pos, String playerName, int money) {
+        this.pos = pos;
+        this.playerName = playerName;
+        this.money = money;
+    }
 
     public Player(String playerName, int money, int genderSkin, int petID) {
         this.playerName = playerName;
@@ -33,6 +43,10 @@ public class Player extends Entity {
         this.left2 = setup("/Player/" + genderSkin + "/left2");
         this.right1 = setup("/Player/" + genderSkin + "/right1");
         this.right2 = setup("/Player/" + genderSkin + "/right2");
+    }
+
+    public int getPos() {
+        return pos;
     }
 
     public String getPlayerName() {
@@ -98,13 +112,14 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image, screenX, screenY, 48, 48, null);
-        g2.setFont(new Font("Bahnschrift",Font.BOLD,20));
-        g2.drawString(playerName,screenX,screenY);
+        g2.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+        g2.drawString(playerName, screenX, screenY);
 //        g2.setColor(Color.BLACK);
 //        g2.fillRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 //        g2.drawImage(image, worldX, worldY, 48, 48, null);
     }
-    public void loadComponent(GamePanel  gp){
+
+    public void loadComponent(GamePanel gp) {
         gp.aSetter.setPlayer();
     }
 }

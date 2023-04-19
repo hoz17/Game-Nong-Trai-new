@@ -3,6 +3,7 @@ package Controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed, spacePressed, downPressed, leftPressed, rightPressed,
@@ -62,8 +63,14 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.chatState) {
             chatState(code);
         }
+        if (gp.gameState == gp.duplicateLoginState) {
+            if (code == KeyEvent.VK_ENTER) {
+                Main.socketHandler.logout();
+            }
+        }
         if (code == KeyEvent.VK_ESCAPE) {
-            gp.gameState = gp.playState;
+            if (gp.gameState != gp.playState && gp.gameState != gp.duplicateLoginState)
+                gp.gameState = gp.playState;
         }
 
     }
@@ -277,9 +284,14 @@ public class KeyHandler implements KeyListener {
                     Main.socketHandler.write("trample=" + slot);
                 }
                 if (gp.ui.selectTool == 1) {
-                    if (gp.land.getWaterLevel(slot) < 3)
-                        Main.socketHandler.write("water=" + slot);
-                    else gp.gameState = gp.playState;
+                    if (gp.land.getWaterLevel(slot) < 3) {
+                        Timestamp now = new Timestamp(System.currentTimeMillis());
+                        if (gp.land.getNextWaterTime(slot) == null) {
+                            Main.socketHandler.write("water=" + slot);
+                        } else if (now.compareTo(gp.land.getNextWaterTime(slot)) > 0){
+                            Main.socketHandler.write("water=" + slot);
+                        }else gp.gameState = gp.playState;
+                    } else gp.gameState = gp.playState;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -428,7 +440,7 @@ public class KeyHandler implements KeyListener {
 
     public void chatState(int code) {
         if (code != KeyEvent.VK_ENTER) {
-            if (Character.isLetter(input)||Character.isDigit(input))
+            if (Character.isLetter(input) || Character.isDigit(input))
                 chatMessage += input;
             if (code == KeyEvent.VK_SPACE) {
                 chatMessage += " ";

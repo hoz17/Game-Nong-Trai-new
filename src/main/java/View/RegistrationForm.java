@@ -19,6 +19,8 @@ public class RegistrationForm extends JFrame {
 
     public RegistrationForm() {
         this.setAlwaysOnTop(true);
+        getImageIcon();
+        Integer[] intArray = new Integer[8];
         usernameLabel = new JLabel("Tài khoản:");
         usernameLabel.setForeground(Color.WHITE);
         usernameLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
@@ -47,7 +49,7 @@ public class RegistrationForm extends JFrame {
         avatarLabel.setForeground(Color.WHITE);
         avatarLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
 
-        imageComboBox = new JComboBox<>();
+        imageComboBox = new JComboBox(intArray);
         imageComboBox.setMaximumRowCount(4);
 //        for (int i = 1; i < 9; i++) {
 //            imageComboBox.addItem(new ImageIcon("/Player/" + i + "/down1.png"));
@@ -62,7 +64,10 @@ public class RegistrationForm extends JFrame {
 //            }
 //        });
         imageComboBox.setPreferredSize(new Dimension(100, 80));
-        imageComboBox.setSelectedIndex(1); // Đặt tùy chọn đầu tiên là mặc định
+        imageComboBox.setSelectedIndex(0); // Đặt tùy chọn đầu tiên là mặc định
+        System.out.println(imageComboBox.getSelectedIndex());
+        ComboBoxRenderer renderer = new ComboBoxRenderer();
+        imageComboBox.setRenderer(renderer);
         imageComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Code để xử lý sự kiện khi người dùng chọn một tùy chọn từ combobox
@@ -149,8 +154,8 @@ public class RegistrationForm extends JFrame {
 
     private DefaultComboBoxModel<Icon> loadImage() {
         DefaultComboBoxModel<Icon> dc = new DefaultComboBoxModel<Icon>();
-        for (int i = 1; i < 9; i++) {
-            dc.addElement(new ImageIcon("/Player/" + i + "/down1.png"));
+        for (int i = 0; i < 8; i++) {
+            dc.addElement(imageIcon[i]);
         }
         return dc;
     }
@@ -168,8 +173,40 @@ public class RegistrationForm extends JFrame {
     }
 
     public void getImageIcon() {
-        for (int i = 1; i < 9; i++) {
-            imageIcon[i] = new ImageIcon(setup("/Player/" + i + "/down1.png"));
+        for (int i = 0; i < 8; i++) {
+            imageIcon[i] = new ImageIcon(setup("/Player/" + i + "/down1"));
+        }
+    }
+
+    class ComboBoxRenderer extends DefaultListCellRenderer {
+        public Component getListCellRendererComponent(
+                JList list,
+                Object value,
+                int index,
+                boolean isSelected,
+                boolean cellHasFocus) {
+            //Get the selected index. (The index param isn't
+            //always valid, so just use the value.)
+
+            JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            renderer.setIcon(imageIcon[index]);
+            return renderer;
+//            int selectedIndex = (Integer) value;
+
+//            if (isSelected) {
+//                setBackground(list.getSelectionBackground());
+//                setForeground(list.getSelectionForeground());
+//            } else {
+//                setBackground(list.getBackground());
+//                setForeground(list.getForeground());
+//            }
+
+            //Set the icon and text.  If icon was null, say so.
+//            ImageIcon icon = imageIcon[selectedIndex];
+//            if (index != -1)
+//                setIcon(icon);
+////            System.out.println(index);
+//            return this;
         }
     }
 }

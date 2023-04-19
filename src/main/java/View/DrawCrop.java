@@ -81,10 +81,14 @@ public class DrawCrop {
     }
 
     public void drawEGUI(Graphics2D g2) {
-        if (gp.currentMap == 0)
+        if (gp.currentMap == 0) {
             if (gp.eHandler.hit(15, 7, "any") || gp.eHandler.hit(16, 7, "any")) {
                 draw(g2, gp.crop.getEGUI(), gp.player.screenX + gp.tileSize, gp.player.screenY - gp.tileSize);
             }
+            if (gp.eHandler.hit(8, 8, "any")) {
+                draw(g2, gp.crop.getEGUI(), gp.player.screenX + gp.tileSize, gp.player.screenY - gp.tileSize);
+            }
+        }
     }
 
     public void draw(Graphics2D g2, BufferedImage image, int col, int row) {

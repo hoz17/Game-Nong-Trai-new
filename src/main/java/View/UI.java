@@ -2,6 +2,7 @@ package View;
 
 import Controller.GamePanel;
 import Model.Message;
+import Model.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -38,6 +39,7 @@ public class UI {
             "Ta vừa nhập được vài món hàng mới,\ncó muốn xem không ?"
     };
     public ArrayList<Message> chatMessage = new ArrayList<>();
+    public ArrayList<Player> leaderboard = new ArrayList<>();
     public int messageCountdown = 0;
     GamePanel gp;
     Font arial_40, arial_80B, comfortaa_20;
@@ -103,10 +105,15 @@ public class UI {
             drawNotification();
         } else if (gp.gameState == gp.chatState) {
             drawChat();
+
         } else if (gp.gameState == gp.playState) {
             //Play State
             if (chatMessage != null)
                 drawChatFlow(0, gp.tileSize * 9);
+        } else if (gp.gameState == gp.duplicateLoginState) {
+            drawDuplicateLogin();
+        } else if (gp.gameState == gp.leaderBoardState) {
+            drawLeaderBoard();
         }
     }
 
@@ -347,7 +354,7 @@ public class UI {
     }
 
     public void tradeState() {
-        drawDialougeScreen(message1);
+        drawDialogueScreen(message1);
 
         // draw window
         int x = gp.tileSize * 15;
@@ -376,7 +383,7 @@ public class UI {
         }
     }
 
-    public void drawDialougeScreen(String message1) {
+    public void drawDialogueScreen(String message1) {
         //Window
         int x = gp.tileSize * 3;
         int y = gp.tileSize / 2;
@@ -610,6 +617,7 @@ public class UI {
         g2.setFont(comfortaa_20);
         g2.drawString(gp.keyH.chatMessage, 24, gp.tileSize * 13 + 30);
         drawChatFlow(0, gp.tileSize * 9);
+        messageCountdown = 300;
     }
 
     public int getItemIndexOnSlot(int slotCol, int slotRow) {
@@ -625,13 +633,12 @@ public class UI {
             g2.setColor(Color.black);
             g2.fillRect(x, y, gp.tileSize * 6, gp.tileSize * 4);
             g2.setColor(Color.white);
-            if (size >= 9) {
-                for (int i = size - 1; i >= size - 9; i--) {
-                    Message mes = chatMessage.get(i);
-                    if (!mes.getPlayerName().equals(""))
-                        g2.drawString(mes.getPlayerName() + ": " + mes.getMessage(), x, y + gp.tileSize * 4 - 12);
-                    y -= 20;
-                }
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            for (int i = size - 1; i >= size - 9; i--) {
+                Message mes = chatMessage.get(i);
+                if (!mes.getPlayerName().equals(""))
+                    g2.drawString(mes.getPlayerName() + ": " + mes.getMessage(), x, y + gp.tileSize * 4 - 12);
+                y -= 20;
             }
 //            else {
 //                for (Message mes : chatMessage) {
@@ -641,6 +648,35 @@ public class UI {
 //            }
 
         }
-        messageCountdown--;
+        if (gp.gameState != gp.chatState)
+            messageCountdown--;
+    }
+
+    public void drawDuplicateLogin() {
+        drawSubWindow(gp.tileSize * 3, gp.tileSize * 3, gp.tileSize * 16, gp.tileSize * 3);
+        g2.drawString("Tài khoản của bạn được đăng nhập ", gp.tileSize * 3 + 24, gp.tileSize * 4);
+        g2.drawString("tại nơi khác !  ", gp.tileSize * 3 + 24, gp.tileSize * 4 + 40);
+        g2.setFont(arial_40);
+        g2.drawString("Bấm ENTER", gp.tileSize * 8, gp.tileSize * 4 + 80);
+    }
+
+    public void drawLeaderBoard() {
+        int x = gp.tileSize * 4;
+        int y = gp.tileSize;
+        g2.setFont(comfortaa_20);
+        drawSubWindow(x, y, gp.tileSize * 7, gp.tileSize * 6);
+        x += 10;
+        y += 30;
+        g2.drawString("BẢNG XẾP HẠNG", x + 70, y + 5);
+        y += 30;
+        g2.drawString("STT  Tên người chơi     Số tiền", x, y);
+        x += 10;
+        y += 40;
+        for (Player player : leaderboard) {
+            g2.drawString(String.valueOf(player.getPos()), x, y);
+            g2.drawString(player.getPlayerName(), x + 40, y);
+            g2.drawString(String.valueOf(player.getMoney()), x + 220, y);
+            y += 20;
+        }
     }
 }

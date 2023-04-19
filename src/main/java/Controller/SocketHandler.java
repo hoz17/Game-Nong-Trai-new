@@ -1,13 +1,14 @@
 package Controller;
 
 import Model.*;
+import View.LoginForm;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -34,7 +35,7 @@ public class SocketHandler implements Runnable {
     public void run() {
         try {
             // Gửi yêu cầu kết nối tới Server đang lắng nghe
-            socketOfClient = new Socket("localhost", 7777);
+            socketOfClient = new Socket("14.162.73.152", 7777);
             System.out.println("Kết nối thành công!");
             // Tạo luồng đầu ra tại client (Gửi dữ liệu tới server)
             os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
@@ -64,8 +65,7 @@ public class SocketHandler implements Runnable {
                     System.out.println("Đăng nhập thành công");
                     Player player = getUserFromString(1, messageSplit);
                     gp.player = player;
-                    if (gp.player.getPetID() != 0)
-                        gp.pet = new Pet(gp.player.getPetID(), gp);
+                    if (gp.player.getPetID() != 0) gp.pet = new Pet(gp.player.getPetID(), gp);
                     gp.loginForm.dispose();
                     write("load-player-data=");
                 }
@@ -123,6 +123,12 @@ public class SocketHandler implements Runnable {
                     int slot = Integer.parseInt(messageSplit[1]);
                     int newWaterLevel = Integer.parseInt(messageSplit[2]);
                     gp.land.setWaterLevel(slot, newWaterLevel);
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(timestamp.getTime());
+                    cal.add(Calendar.MINUTE, 30);
+                    Timestamp newTimestamp = new Timestamp(cal.getTime().getTime());
+                    gp.land.setNextWaterTime(slot, newTimestamp);
                     gp.gameState = gp.playState;
                 }
                 if (messageSplit[0].equals("trample-complete")) {
@@ -145,32 +151,28 @@ public class SocketHandler implements Runnable {
                     gp.inventory.setCropAmount(cropID, newCropAmount);
                 }
                 if (messageSplit[0].equals("chat-message")) {
-                    String playerName = "", msg = "";
-                    if (!messageSplit[1].equals(""))
-                        playerName = messageSplit[1];
-                    if (!messageSplit[2].equals(""))
-                        msg = messageSplit[2];
-                    if (!playerName.equals("") && !msg.equals("")) {
-                        gp.ui.chatMessage.add(new Message(playerName, msg));
+                    if (messageSplit.length > 2) {
+                        gp.ui.chatMessage.add(new Message(messageSplit[1], messageSplit[2]));
                         gp.ui.messageCountdown = 300;
                     }
                 }
+                if (messageSplit[0].equals("logout")) {
+                    gp.gameState = gp.duplicateLoginState;
+                }
+                if (messageSplit[0].equals("leaderboard")) {
+                    for (int i = 0; i < messageSplit.length / 2; i++) {
+                        gp.ui.leaderboard.add(new Player(i + 1, messageSplit[i * 2 + 1], Integer.parseInt(messageSplit[i * 2 + 2])));
+                    }
+                    gp.gameState = gp.leaderBoardState;
+                }
             }
-        } catch (NumberFormatException e) {
-            throw new RuntimeException(e);
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (NumberFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public Player getUserFromString(int start, String[] message) {
-        return new Player(message[start],
-                Integer.parseInt(message[start + 1]),
-                Integer.parseInt(message[start + 2]),
-                Integer.parseInt(message[start + 3])
-        );
+        return new Player(message[start], Integer.parseInt(message[start + 1]), Integer.parseInt(message[start + 2]), Integer.parseInt(message[start + 3]));
     }
 
     public Inventory getInventoryData(int start, String[] message) {
@@ -250,5 +252,19 @@ public class SocketHandler implements Runnable {
         System.out.println("send " + message);
         os.newLine();
         os.flush();
+    }
+
+    public void clearData() {
+        gp.player = null;
+        gp.pet = null;
+        gp.land = null;
+        gp.inventory = null;
+    }
+
+    public void logout() {
+        clearData();
+        gp.gameState = gp.titleState;
+        gp.loginForm = new LoginForm(gp);
+        gp.loginForm.setVisible(true);
     }
 }
