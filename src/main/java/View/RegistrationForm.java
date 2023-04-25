@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Main;
 import Controller.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class RegistrationForm extends JFrame {
     private JLabel usernameLabel, passwordLabel, retypePasswordLabel, imageLabel, playerNameLabel, avatarLabel;
@@ -83,7 +85,23 @@ public class RegistrationForm extends JFrame {
         registerButton.setFont(new Font("Helvetica", Font.BOLD, 14));
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Code to handle registration here
+                try {  // Code to handle registration here
+                    String userName = usernameField.getText();
+                    if (userName.isEmpty()) throw new Exception("Vui lòng nhập tài khoản !");
+                    String password = passwordField.getText();
+                    if (password.isEmpty()) throw new Exception("Vui lòng nhập mật khẩu !");
+                    if (!password.equals(retypePasswordField.getText())) throw new Exception("Xác nhận mật khẩu sai !");
+                    String playerName = playerNameField.getText();
+                    if(playerName.isEmpty())throw new Exception("Vui lòng nhập tên người chơi !");
+                    int genderSkin = imageComboBox.getSelectedIndex();
+                    try {
+                        Main.socketHandler.write("register=" + userName + "=" + password+"="+playerName+"=1"+"="+genderSkin+"=0");
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                }
             }
         });
 
@@ -189,7 +207,7 @@ public class RegistrationForm extends JFrame {
             //always valid, so just use the value.)
 
             JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            renderer.setIcon(imageIcon[index]);
+//            renderer.setIcon(imageIcon[index]);
             return renderer;
 //            int selectedIndex = (Integer) value;
 

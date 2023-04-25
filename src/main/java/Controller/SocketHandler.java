@@ -35,7 +35,7 @@ public class SocketHandler implements Runnable {
     public void run() {
         try {
             // Gửi yêu cầu kết nối tới Server đang lắng nghe
-            socketOfClient = new Socket("14.162.73.152", 7777);
+            socketOfClient = new Socket("localhost", 7777);
             System.out.println("Kết nối thành công!");
             // Tạo luồng đầu ra tại client (Gửi dữ liệu tới server)
             os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
@@ -67,6 +67,7 @@ public class SocketHandler implements Runnable {
                     gp.player = player;
                     if (gp.player.getPetID() != 0) gp.pet = new Pet(gp.player.getPetID(), gp);
                     gp.loginForm.dispose();
+                    gp.registrationForm.dispose();
                     write("load-player-data=");
                 }
                 if (messageSplit[0].equals("player-data")) {
@@ -81,6 +82,12 @@ public class SocketHandler implements Runnable {
                 //Thông tin tài khoản sai
                 if (messageSplit[0].equals("wrong-user")) {
                     gp.loginForm.wrongUser();
+                }
+                if (messageSplit[0].equalsIgnoreCase("duplicate-playername")) {
+                    gp.loginForm.duplicatePlayername();
+                }
+                if (messageSplit[0].equals("duplicate-username")) {
+                    gp.loginForm.duplicateUsername();
                 }
                 if (messageSplit[0].equals("harvest-complete")) {
                     int slot = Integer.parseInt(messageSplit[1]);

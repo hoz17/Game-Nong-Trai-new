@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 //    Scanner sc = new Scanner(System.in);
 //    public Main main = new Main();
     public LoginForm loginForm;
+    public RegistrationForm registrationForm;
 
     // Draw component
     public DrawMap dMap = new DrawMap();

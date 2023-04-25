@@ -68,7 +68,7 @@ public class LoginForm extends JFrame {
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gp.loginForm.setVisible(false);
-                RegistrationForm form = new RegistrationForm();
+                gp.registrationForm = new RegistrationForm();
             }
         });
 
@@ -113,7 +113,15 @@ public class LoginForm extends JFrame {
     public void wrongUser() {
         JOptionPane.showMessageDialog(rootPane, "Sai tài khoản hoặc mật khẩu !");
     }
-//    public static void main(String[] args) {
+
+    //    public static void main(String[] args) {
 //        login form = new login();
 //    }
+    public void duplicateUsername() {
+        JOptionPane.showMessageDialog(rootPane, "Tài khoản này đã được sử dụng !");
+    }
+
+    public void duplicatePlayername() {
+        JOptionPane.showMessageDialog(rootPane, "Tên người dùng này đã được sử dụng này đã được sử dụng !");
+    }
 }
