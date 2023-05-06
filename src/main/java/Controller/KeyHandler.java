@@ -28,7 +28,8 @@ public class KeyHandler implements KeyListener {
 
         if (gp.gameState == gp.chatState) {
             input = e.getKeyChar();
-        } else if (gp.gameState == gp.playState) {
+        }
+        if (gp.gameState == gp.playState) {
             playState(code);
         } else if (gp.gameState == gp.titleState) {
             titleState(code);
