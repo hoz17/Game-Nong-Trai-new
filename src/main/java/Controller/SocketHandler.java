@@ -96,6 +96,7 @@ public class SocketHandler implements Runnable {
                     int newCropAmount = Integer.parseInt(messageSplit[3]);
                     gp.land.setCropID(slot, -1);
                     gp.inventory.setCropAmount(cropID, newCropAmount);
+                    gp.land.setHarvestable(slot, false);
                     gp.ui.chatMessage.add(new Message("Hệ thống", "Đã thu hoạch " + gp.crop.getCropName(cropID) + "x1 !"));
                     gp.ui.messageCountdown = 300;
                 }
