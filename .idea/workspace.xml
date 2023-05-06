@@ -5,11 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f18ce1b1-0188-4008-a26f-1679ede9963c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/buyland.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/harvest.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/plant.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/select.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Sounds/theme.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/KeyHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/SocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/SocketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/LoginForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/RegistrationForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/RegistrationForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Sound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Sound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/UI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/BlueBoyAdventure.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/Dungeon.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/FinalBattle.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/Merchant.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/blocked.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/burning.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/chipwall.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/coin.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/cursor.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/cuttree.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/dooropen.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/fanfare.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/gameover.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/hitmonster.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/levelup.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/parry.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/powerup.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/receivedamage.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/sleep.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/speak.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/stairs.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sounds/unlock.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/KeyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/KeyHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/SocketHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/SocketHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Sound.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Sound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/View/UI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/View/UI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,17 +69,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Code/Java/sapphire-ocr/code&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/Code/Java/sapphire-ocr/code",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Code\Java\Game-Nong-Trai-new\src\main\resources" />
@@ -87,5 +120,8 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

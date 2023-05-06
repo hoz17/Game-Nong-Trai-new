@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, spacePressed, downPressed, leftPressed, rightPressed,
-            ePressed, enterPressed, choosePressed, closeSSelected;
+    public boolean upPressed, downPressed, leftPressed, rightPressed;
     public char input;
     public String chatMessage = "";
     public int slot;
@@ -26,51 +25,47 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (gp.gameState == gp.chatState) {
 
-            input = e.getKeyChar();
-        }
-        if (gp.gameState == gp.playState) {
-            playState(code);
-        }
-        if (gp.gameState == gp.titleState) {
-            titleState(code);
-        }
-        if (gp.gameState == gp.buyLand) {
-            buyLand(code);
-        }
-        if (gp.gameState == gp.notificationState) {
-            notificationState(code);
-        }
-        if (gp.gameState == gp.selectSeed) {
-            selectSeed(code);
-        }
-        if (gp.gameState == gp.selectTool) {
-            selectTool(code);
-        }
-        if (gp.gameState == gp.tradeState) {
-            tradeState(code);
-        }
-        if (gp.gameState == gp.shopBuyState) {
-            shopBuyState(code);
-        }
-        if (gp.gameState == gp.shopSellState) {
-            shopSellState(code);
-        }
-        if (gp.gameState == gp.inventoryState) {
-            inventoryState(code);
-        }
         if (gp.gameState == gp.chatState) {
+            input = e.getKeyChar();
+        } else if (gp.gameState == gp.playState) {
+            playState(code);
+        } else if (gp.gameState == gp.titleState) {
+            titleState(code);
+        } else if (gp.gameState == gp.buyLand) {
+            buyLand(code);
+        } else if (gp.gameState == gp.notificationState) {
+            notificationState(code);
+        } else if (gp.gameState == gp.selectSeed) {
+            selectSeed(code);
+        } else if (gp.gameState == gp.selectTool) {
+            selectTool(code);
+        } else if (gp.gameState == gp.tradeState) {
+            tradeState(code);
+        } else if (gp.gameState == gp.shopBuyState) {
+            shopBuyState(code);
+        } else if (gp.gameState == gp.shopSellState) {
+            shopSellState(code);
+        } else if (gp.gameState == gp.inventoryState) {
+            inventoryState(code);
+        } else if (gp.gameState == gp.chatState) {
             chatState(code);
-        }
-        if (gp.gameState == gp.duplicateLoginState) {
+        } else if (gp.gameState == gp.duplicateLoginState) {
             if (code == KeyEvent.VK_ENTER) {
                 Main.socketHandler.logout();
             }
+        } else if (gp.gameState == gp.optionsState) {
+            optionState(code);
+        } else if (gp.gameState == gp.keymapState) {
+            keymapState(code);
+        } else if (gp.gameState == gp.logoutState) {
+            logoutState(code);
         }
         if (code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState != gp.playState && gp.gameState != gp.duplicateLoginState)
                 gp.gameState = gp.playState;
+            else if (gp.gameState == gp.playState)
+                gp.gameState = gp.optionsState;
         }
 
     }
@@ -102,6 +97,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
+
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_W) {
                 upPressed = false;
@@ -122,22 +118,27 @@ public class KeyHandler implements KeyListener {
         if (gp.ui.titleScreenState == 0) {
             if (code == KeyEvent.VK_W) {
                 gp.ui.commandNum--;
-//                gp.playSE(5);
+                gp.playSE(4);
                 if (gp.ui.commandNum < 0) {
                     gp.ui.commandNum = 1;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commandNum++;
-//                gp.playSE(5);
+                gp.playSE(4);
                 if (gp.ui.commandNum > 1) {
                     gp.ui.commandNum = 0;
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
+                gp.playSE(4);
                 if (gp.ui.commandNum == 0) {
 //                    gp.setUpGame();
                     gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if (gp.ui.commandNum == 1) {
+                    System.exit(0);
                 }
             }
         }
@@ -169,16 +170,19 @@ public class KeyHandler implements KeyListener {
                 }
 //                gp.land.setHaveLand(gp.land.getHaveLand() + 1);
             } else if (gp.ui.commandNum == 1) {
+                gp.ui.commandNum = 0;
                 gp.gameState = gp.playState;
             }
         }
         if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
             gp.ui.commandNum--;
             if (gp.ui.commandNum < 0) {
                 gp.ui.commandNum = 1;
             }
         }
         if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
             gp.ui.commandNum++;
             if (gp.ui.commandNum < 1) {
                 gp.ui.commandNum = 0;
@@ -188,6 +192,7 @@ public class KeyHandler implements KeyListener {
 
     public void selectSeed(int code) {
         if (code == KeyEvent.VK_A) {
+            gp.playSE(4);
             gp.ui.posSeed--;
             gp.ui.selectS--;
 
@@ -214,6 +219,7 @@ public class KeyHandler implements KeyListener {
             }
         }
         if (code == KeyEvent.VK_D) {
+            gp.playSE(4);
             gp.ui.posSeed++;
             gp.ui.selectS++;
             gp.ui.selectCol++;
@@ -270,10 +276,12 @@ public class KeyHandler implements KeyListener {
 
     public void selectTool(int code) {
         if (code == KeyEvent.VK_A) {
+            gp.playSE(4);
             if (gp.ui.selectTool > 0)
                 gp.ui.selectTool--;
         }
         if (code == KeyEvent.VK_D) {
+            gp.playSE(4);
             if (gp.ui.selectTool < 1)
                 gp.ui.selectTool++;
         }
@@ -288,9 +296,9 @@ public class KeyHandler implements KeyListener {
                         Timestamp now = new Timestamp(System.currentTimeMillis());
                         if (gp.land.getNextWaterTime(slot) == null) {
                             Main.socketHandler.write("water=" + slot);
-                        } else if (now.compareTo(gp.land.getNextWaterTime(slot)) > 0){
+                        } else if (now.compareTo(gp.land.getNextWaterTime(slot)) > 0) {
                             Main.socketHandler.write("water=" + slot);
-                        }else gp.gameState = gp.playState;
+                        } else gp.gameState = gp.playState;
                     } else gp.gameState = gp.playState;
                 }
             } catch (Exception e) {
@@ -301,10 +309,12 @@ public class KeyHandler implements KeyListener {
 
     public void tradeState(int code) {
         if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
             if (gp.ui.subState > 0)
                 gp.ui.subState--;
         }
         if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
             if (gp.ui.subState < 2)
                 gp.ui.subState++;
         }
@@ -324,24 +334,36 @@ public class KeyHandler implements KeyListener {
     }
 
     public void shopBuyState(int code) {
-        if (code == KeyEvent.VK_W)
+        if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
             if (gp.ui.npcSlotRow > 0)
                 gp.ui.npcSlotRow--;
-        if (code == KeyEvent.VK_S)
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
             if (gp.ui.npcSlotRow < 4)
                 gp.ui.npcSlotRow++;
-        if (code == KeyEvent.VK_A)
+        }
+        if (code == KeyEvent.VK_A) {
+            gp.playSE(4);
             if (gp.ui.npcSlotCol > 0)
                 gp.ui.npcSlotCol--;
-        if (code == KeyEvent.VK_D)
+        }
+        if (code == KeyEvent.VK_D) {
+            gp.playSE(4);
             if (gp.ui.npcSlotCol < 3)
                 gp.ui.npcSlotCol++;
-        if (code == KeyEvent.VK_LEFT)
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            gp.playSE(4);
             if (gp.ui.buyNumber > 0)
                 gp.ui.buyNumber--;
-        if (code == KeyEvent.VK_RIGHT)
+        }
+        if (code == KeyEvent.VK_RIGHT) {
+            gp.playSE(4);
             if (gp.ui.buyNumber < 10)
                 gp.ui.buyNumber++;
+        }
         if (code == KeyEvent.VK_ENTER) {
             if (gp.ui.buyNumber > 0) {
                 int slot = gp.ui.npcSlotCol + gp.ui.npcSlotRow * 4;
@@ -361,51 +383,65 @@ public class KeyHandler implements KeyListener {
     }
 
     public void inventoryState(int code) {
-        if (code == KeyEvent.VK_A)
+        if (code == KeyEvent.VK_A) {
+            gp.playSE(4);
             if (gp.ui.inventoryCol > 0)
                 gp.ui.inventoryCol--;
-        if (code == KeyEvent.VK_D)
+        }
+        if (code == KeyEvent.VK_D) {
+            gp.playSE(4);
             if (gp.ui.inventoryCol < 3)
                 gp.ui.inventoryCol++;
-        if (code == KeyEvent.VK_W)
+        }
+        if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
             if (gp.ui.inventoryRow > 0)
                 gp.ui.inventoryRow--;
-        if (code == KeyEvent.VK_S)
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
             if (gp.ui.inventoryRow < 4)
                 gp.ui.inventoryRow++;
+        }
     }
 
     public void shopSellState(int code) {
         int id = gp.ui.getItemIndexOnSlot(gp.ui.playerlotCol, gp.ui.playerlotRow);
         if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
             if (gp.ui.playerlotRow > 0) {
                 gp.ui.playerlotRow--;
                 gp.ui.sellNumber = 0;
             }
         }
         if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
             if (gp.ui.playerlotRow < 4) {
                 gp.ui.playerlotRow++;
                 gp.ui.sellNumber = 0;
             }
         }
         if (code == KeyEvent.VK_A) {
+            gp.playSE(4);
             if (gp.ui.playerlotCol > 0) {
                 gp.ui.playerlotCol--;
                 gp.ui.sellNumber = 0;
             }
         }
         if (code == KeyEvent.VK_D) {
+            gp.playSE(4);
             if (gp.ui.playerlotCol < 3) {
                 gp.ui.playerlotCol++;
                 gp.ui.sellNumber = 0;
             }
         }
         if (code == KeyEvent.VK_LEFT) {
+            gp.playSE(4);
             if (gp.ui.sellNumber > 0)
                 gp.ui.sellNumber--;
         }
         if (code == KeyEvent.VK_RIGHT) {
+            gp.playSE(4);
             if (gp.ui.sellNumber < gp.inventory.getCropAmount(id))
                 gp.ui.sellNumber++;
         }
@@ -458,6 +494,88 @@ public class KeyHandler implements KeyListener {
                 }
             chatMessage = "";
             gp.gameState = gp.playState;
+        }
+    }
+
+    public void optionState(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
+            if (gp.ui.commandNum > 0)
+                gp.ui.commandNum--;
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
+            if (gp.ui.commandNum < 4)
+                gp.ui.commandNum++;
+        }
+        if (code == KeyEvent.VK_A) {
+            gp.playSE(4);
+            if (gp.ui.commandNum == 0 && gp.music.volumeScale > 0) {
+                gp.music.volumeScale--;
+                gp.music.checkVolume();
+            }
+            if (gp.ui.commandNum == 1 && gp.SE.volumeScale > 0) {
+                gp.SE.volumeScale--;
+                gp.SE.checkVolume();
+            }
+
+        }
+        if (code == KeyEvent.VK_D) {
+
+            gp.playSE(4);
+            if (gp.ui.commandNum == 0 && gp.music.volumeScale < 5) {
+                gp.music.volumeScale++;
+                gp.music.checkVolume();
+            }
+            if (gp.ui.commandNum == 1 && gp.SE.volumeScale < 5) {
+                gp.SE.volumeScale++;
+                gp.SE.checkVolume();
+            }
+
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            gp.playSE(4);
+            if (gp.ui.commandNum == 2) {
+                gp.ui.commandNum = 0;
+                gp.gameState = gp.keymapState;
+            }
+            if (gp.ui.commandNum == 3) {
+                gp.ui.commandNum = 0;
+                gp.gameState = gp.logoutState;
+            }
+        }
+    }
+
+    public void logout() {
+        try {
+            Main.socketHandler.write("send-logout=");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void keymapState(int code) {
+        if (gp.ui.commandNum == 0)
+            if (code == KeyEvent.VK_ENTER)
+                gp.gameState = gp.optionsState;
+    }
+
+    public void logoutState(int code) {
+        if (code == KeyEvent.VK_W) {
+            gp.playSE(4);
+            if (gp.ui.commandNum > 0)
+                gp.ui.commandNum--;
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.playSE(4);
+            if (gp.ui.commandNum < 1)
+                gp.ui.commandNum++;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0)
+                logout();
+            if (gp.ui.commandNum == 1)
+                gp.gameState = gp.optionsState;
         }
     }
 }

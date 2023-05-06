@@ -67,7 +67,8 @@ public class SocketHandler implements Runnable {
                     gp.player = player;
                     if (gp.player.getPetID() != 0) gp.pet = new Pet(gp.player.getPetID(), gp);
                     gp.loginForm.dispose();
-                    gp.registrationForm.dispose();
+                    if (gp.registrationForm != null)
+                        gp.registrationForm.dispose();
                     write("load-player-data=");
                 }
                 if (messageSplit[0].equals("player-data")) {
@@ -93,12 +94,10 @@ public class SocketHandler implements Runnable {
                     int slot = Integer.parseInt(messageSplit[1]);
                     int cropID = Integer.parseInt(messageSplit[2]);
                     int newCropAmount = Integer.parseInt(messageSplit[3]);
-                    for (int i = 0; i < 32; i++) {
-                        if (gp.land.getSlot(i) == slot) {
-                            gp.land.setCropID(i, -1);
-                            gp.inventory.setCropAmount(cropID, newCropAmount);
-                        }
-                    }
+                    gp.land.setCropID(slot, -1);
+                    gp.inventory.setCropAmount(cropID, newCropAmount);
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Đã thu hoạch " + gp.crop.getCropName(cropID) + "x1 !"));
+                    gp.ui.messageCountdown = 300;
                 }
                 if (messageSplit[0].equals("buy-farmland-complete")) {
                     int slot = Integer.parseInt(messageSplit[1]);
@@ -106,6 +105,8 @@ public class SocketHandler implements Runnable {
                     gp.player.setMoney(newMoney);
                     gp.land.setState(slot, 1);
                     gp.land.setHaveLand(gp.land.getHaveLand() + 1);
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Mua ô đất thành công !"));
+                    gp.ui.messageCountdown = 300;
                 }
                 if (messageSplit[0].equals("plant-complete")) {
                     int slot = Integer.parseInt(messageSplit[1]);
@@ -125,6 +126,8 @@ public class SocketHandler implements Runnable {
                     gp.land.setCropID(slot, cropID); //Đặt ID là ID của hạt đã chọn
                     gp.land.setWaterLevel(slot, 0); // Đặt WaterLevel = 0 là hạt chưa phát triển
                     gp.inventory.setSeedAmount(cropID, newSeedAmount);
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Đã trồng " + gp.crop.getCropName(cropID) + " !"));
+                    gp.ui.messageCountdown = 300;
                 }
                 if (messageSplit[0].equals("water-complete")) {
                     int slot = Integer.parseInt(messageSplit[1]);
@@ -137,11 +140,15 @@ public class SocketHandler implements Runnable {
                     Timestamp newTimestamp = new Timestamp(cal.getTime().getTime());
                     gp.land.setNextWaterTime(slot, newTimestamp);
                     gp.gameState = gp.playState;
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Tưới cây thành công !"));
+                    gp.ui.messageCountdown = 300;
                 }
                 if (messageSplit[0].equals("trample-complete")) {
                     int slot = Integer.parseInt(messageSplit[1]);
                     gp.land.setCropID(slot, -1);
                     gp.gameState = gp.playState;
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Đã cuốc ô đất !"));
+                    gp.ui.messageCountdown = 300;
                 }
                 if (messageSplit[0].equals("buy-seed-complete")) {
                     int cropID = Integer.parseInt(messageSplit[1]);
@@ -149,13 +156,17 @@ public class SocketHandler implements Runnable {
                     int newMoney = Integer.parseInt(messageSplit[3]);
                     gp.player.setMoney(newMoney);
                     gp.inventory.setSeedAmount(cropID, newSeedAmount);
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Mua hạt giống thành công !"));
+                    gp.ui.messageCountdown = 300;
                 }
-                if (messageSplit[0].equals("sell-seed-complete")) {
+                if (messageSplit[0].equals("sell-crop-complete")) {
                     int cropID = Integer.parseInt(messageSplit[1]);
                     int newCropAmount = Integer.parseInt(messageSplit[2]);
                     int newMoney = Integer.parseInt(messageSplit[3]);
                     gp.player.setMoney(newMoney);
                     gp.inventory.setCropAmount(cropID, newCropAmount);
+                    gp.ui.chatMessage.add(new Message("Hệ thống", "Bán " + gp.crop.getCropName(cropID) + " thành công !"));
+                    gp.ui.messageCountdown = 300;
                 }
                 if (messageSplit[0].equals("chat-message")) {
                     if (messageSplit.length > 2) {
@@ -164,9 +175,13 @@ public class SocketHandler implements Runnable {
                     }
                 }
                 if (messageSplit[0].equals("logout")) {
-                    gp.gameState = gp.duplicateLoginState;
+                    if (Integer.parseInt(messageSplit[1]) == 0)
+                        logout();
+                    if (Integer.parseInt(messageSplit[1]) == 1)
+                        gp.gameState = gp.duplicateLoginState;
                 }
                 if (messageSplit[0].equals("leaderboard")) {
+                    gp.ui.leaderboard.clear();
                     for (int i = 0; i < messageSplit.length / 2; i++) {
                         gp.ui.leaderboard.add(new Player(i + 1, messageSplit[i * 2 + 1], Integer.parseInt(messageSplit[i * 2 + 2])));
                     }
@@ -269,6 +284,7 @@ public class SocketHandler implements Runnable {
     }
 
     public void logout() {
+        gp.stopMusic();
         clearData();
         gp.gameState = gp.titleState;
         gp.loginForm = new LoginForm(gp);

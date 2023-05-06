@@ -29,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int chatState = 13;
     public final int duplicateLoginState = 14;
     public final int leaderBoardState = 15;
+    public final int logoutState = 16;
+    public final int keymapState = 17;
 
     final int scale = 3;
     public final int tileSize = originalTileSize * scale;// 48x48 tile
@@ -67,6 +69,8 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler(this, keyH);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public UI ui = new UI(this);
+    public Sound music = new Sound();
+    public Sound SE = new Sound();
 
     //System setting
     Tile tile = new Tile(this);
@@ -171,5 +175,17 @@ public class GamePanel extends JPanel implements Runnable {
 //        if(clock==true) System.out.println("setupgame");
 //        gameThread.start();
 //        Main.socketHandler.startGameThread();
+    }
+    public void playMusic(int i){
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+    public void playSE(int i){
+        SE.setFile(i);
+        SE.play();
+    }
+    public void stopMusic(){
+        music.stop();
     }
 }
