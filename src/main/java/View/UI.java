@@ -472,6 +472,7 @@ public class UI {
         int frameHeight;
         int slotCol;
         int slotRow;
+        int slotSize;
         g2.setFont(new Font("Arial", Font.PLAIN, 20));
         if (index == 0) {
             frameX = gp.tileSize * 12;
@@ -484,7 +485,7 @@ public class UI {
             frameX = gp.tileSize * 5;
             frameY = gp.tileSize;
             frameWidth = gp.tileSize * 5;
-            frameHeight = gp.tileSize * 6;
+            frameHeight = gp.tileSize * 7 + 9;
             slotCol = npcSlotCol;
             slotRow = npcSlotRow;
         }
@@ -498,7 +499,10 @@ public class UI {
         final int slotYstart = frameY + 20;
         int slotX = slotXstart;
         int slotY = slotYstart;
-        int slotSize = gp.tileSize + 3;
+        if (cursor)
+            slotSize = gp.tileSize;
+        else
+            slotSize = gp.tileSize + 3;
 
         // draw item inventory
         for (int i = 0; i < 20; i++) {
